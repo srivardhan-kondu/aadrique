@@ -27,6 +27,25 @@ def _env_list(key: str, default: str = "") -> List[str]:
     return [v.strip() for v in _env(key, default).split(",") if v.strip()]
 
 
+def _normalize_origin(value: str) -> str:
+    """Normalize a configured CORS origin to what a browser actually sends.
+
+    Browsers send `Origin: https://example.com` — scheme + host + optional port,
+    never a trailing slash or path. Configuring "https://example.com/" therefore
+    silently matches nothing, and every request fails CORS with no obvious cause.
+    Strip the common mistakes rather than let a stray character take the site down.
+    """
+    v = value.strip().strip('"').strip("'")
+    if not v or v == "*":
+        return v
+    # Drop any path/query and the trailing slash: https://a.com/foo/ -> https://a.com
+    if "//" in v:
+        scheme, _, rest = v.partition("//")
+        host = rest.split("/", 1)[0]
+        return f"{scheme}//{host}"
+    return v.rstrip("/")
+
+
 def _env_bool(key: str, default: bool = False) -> bool:
     raw = _env(key).lower()
     if not raw:
@@ -47,7 +66,9 @@ class Settings:
     db_name: str = field(default_factory=lambda: _env("DB_NAME", "aadrique"))
 
     # --- CORS ---
-    cors_origins: List[str] = field(default_factory=lambda: _env_list("CORS_ORIGINS"))
+    cors_origins: List[str] = field(
+        default_factory=lambda: [_normalize_origin(o) for o in _env_list("CORS_ORIGINS")]
+    )
 
     # --- Email (optional: the site still works without it) ---
     email_base_url: str = field(

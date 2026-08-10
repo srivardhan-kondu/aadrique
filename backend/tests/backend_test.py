@@ -14,6 +14,8 @@ CONTACT_RATE_LIMIT must be raised for the run, otherwise the contact tests trip 
 5-per-minute limiter and fail on 429.
 """
 import os
+import sys
+from pathlib import Path
 
 import pytest
 import requests
@@ -54,6 +56,25 @@ class TestHealth:
         body = r.json()
         assert body["status"] == "ok"
         assert body["database"] == "ok"
+
+    def test_cors_origin_normalization(self):
+        """A trailing slash in CORS_ORIGINS must not silently break every request.
+
+        Browsers send `Origin: https://site.com` with no trailing slash, so a
+        configured "https://site.com/" matches nothing and the whole site loads
+        empty with no server-side error. Normalize instead.
+        """
+        # config.py lives in backend/, one level up from this tests/ directory.
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+        from config import _normalize_origin
+
+        assert _normalize_origin("https://site.com/") == "https://site.com"
+        assert _normalize_origin("https://site.com") == "https://site.com"
+        assert _normalize_origin('"https://site.com/"') == "https://site.com"
+        assert _normalize_origin("  https://site.com//  ") == "https://site.com"
+        assert _normalize_origin("https://site.com:8080/") == "https://site.com:8080"
+        assert _normalize_origin("https://site.com/path") == "https://site.com"
+        assert _normalize_origin("*") == "*"
 
     def test_security_headers(self, s):
         h = s.get(f"{API}/").headers
