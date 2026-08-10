@@ -252,7 +252,7 @@ export default function Home() {
           <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-16">
             <div>
               <p className="label-tech text-accentText mb-6">Selected work</p>
-              <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">Proof, in numbers.</h2>
+              <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">What we've built.</h2>
             </div>
             <Link to="/work" data-testid="work-view-all-link" className="link-underline font-grotesk text-sm uppercase tracking-[0.12em] text-mutedInk hover:text-inkStrong transition-colors duration-300">
               All case studies →
@@ -273,14 +273,22 @@ export default function Home() {
                   </h3>
                   <p className="mt-4 text-sm text-mutedInk leading-relaxed">{cs.teaser}</p>
                 </div>
-                <div className="mt-10 pt-6 border-t border-line grid grid-cols-3 gap-4">
-                  {cs.results.map((r) => (
-                    <div key={r.label}>
-                      <p className="font-grotesk font-semibold text-lg md:text-xl text-inkStrong">{r.metric}</p>
-                      <p className="mt-1 text-[11px] uppercase tracking-wide text-mutedInk leading-tight">{r.label}</p>
-                    </div>
-                  ))}
-                </div>
+                {(cs.results || []).length > 0 ? (
+                  <div className="mt-10 pt-6 border-t border-line grid grid-cols-3 gap-4">
+                    {cs.results.map((r) => (
+                      <div key={r.label}>
+                        <p className="font-grotesk font-semibold text-lg md:text-xl text-inkStrong">{r.metric}</p>
+                        <p className="mt-1 text-[11px] uppercase tracking-wide text-mutedInk leading-tight">{r.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-10 pt-6 border-t border-line flex flex-wrap gap-2">
+                    {(cs.focus || []).map((f) => (
+                      <span key={f} className="text-[11px] uppercase tracking-wide text-mutedInk">{f}</span>
+                    ))}
+                  </div>
+                )}
               </Link>
             ))}
           </div>

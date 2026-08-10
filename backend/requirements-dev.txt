@@ -1,0 +1,10 @@
+# Development / CI extras. Install on top of requirements.txt:
+#   pip install -r requirements.txt -r requirements-dev.txt
+
+-r requirements.txt
+
+pytest==9.1.1
+pytest-xdist==3.8.0
+requests==2.34.2
+black==26.5.1
+flake8==7.3.0

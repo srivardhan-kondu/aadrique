@@ -1,0 +1,58 @@
+# Render Blueprint for the AADRIQUE API.
+#
+# Render → New → Blueprint → connect this repo. Render reads this file and creates
+# the service. Variables marked `sync: false` are NOT stored in git — Render prompts
+# you for them during setup.
+#
+# The frontend is NOT deployed here; it goes to Vercel (see DEPLOYMENT.md §4).
+
+services:
+  - type: web
+    name: aadrique-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    # --proxy-headers lets uvicorn read the real client IP from Render's proxy,
+    # which the contact-form rate limiter depends on. Pair with TRUST_PROXY=true.
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips '*'
+    healthCheckPath: /api/health
+    autoDeploy: true
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+
+      - key: ENVIRONMENT
+        value: production
+
+      # MongoDB Atlas SRV connection string. Prompted at deploy time.
+      - key: MONGO_URL
+        sync: false
+
+      - key: DB_NAME
+        value: aadrique
+
+      # Your Vercel domain(s), comma-separated, no trailing slash. e.g.
+      # https://www.aadrique.in,https://aadrique.in,https://aadrique.vercel.app
+      # The API refuses to boot in production if this is missing or set to "*".
+      - key: CORS_ORIGINS
+        sync: false
+
+      # Guards GET /api/enquiries (customer personal data).
+      # Render generates a strong value — read it from the dashboard afterwards.
+      - key: ADMIN_TOKEN
+        generateValue: true
+
+      # Render terminates TLS at its proxy, so trusting X-Forwarded-For is correct here.
+      - key: TRUST_PROXY
+        value: "true"
+
+      # Transactional email — optional. Without these, enquiries are still stored
+      # in MongoDB, but no notification or auto-reply is sent.
+      - key: OWNER_EMAIL
+        sync: false
+      - key: EMERGENT_EMAIL_KEY
+        sync: false
+      - key: EMAIL_FROM_NAME
+        value: AADRIQUE

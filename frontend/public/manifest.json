@@ -1,0 +1,18 @@
+{
+  "short_name": "AADRIQUE",
+  "name": "AADRIQUE — Build. Transform. Scale.",
+  "description": "AADRIQUE TECH PVT LTD — Technology Transformation Company.",
+  "icons": [
+    {
+      "src": "/monogram.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#060606",
+  "background_color": "#060606"
+}

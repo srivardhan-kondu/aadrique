@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The API serves JSON only — nothing to index, and /api/enquiries is private.
+Disallow: /api/
+
+Sitemap: https://www.aadrique.in/sitemap.xml

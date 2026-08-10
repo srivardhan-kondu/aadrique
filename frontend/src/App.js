@@ -16,9 +16,12 @@ import ArticleDetail from "@/pages/ArticleDetail";
 import FAQPage from "@/pages/FAQPage";
 import Contact from "@/pages/Contact";
 import Legal from "@/pages/Legal";
+import NotFound from "@/pages/NotFound";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 function App() {
   return (
+    <ErrorBoundary>
     <div className="App">
       <MotionConfig reducedMotion="user">
         <BrowserRouter>
@@ -38,12 +41,14 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy-policy" element={<Legal page="privacy" />} />
               <Route path="/terms" element={<Legal page="terms" />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
         <Toaster position="bottom-right" theme="dark" toastOptions={{ style: { borderRadius: 0, fontFamily: '"Space Grotesk", sans-serif' } }} />
       </MotionConfig>
     </div>
+    </ErrorBoundary>
   );
 }
 

@@ -1,23 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
+import { getLocal, setLocal, prefersLight, prefersReducedMotion } from "@/lib/storage";
 
 const useTheme = () => {
   const [theme, setTheme] = useState(() => {
-    const stored = localStorage.getItem("aad-theme");
+    const stored = getLocal("aad-theme");
     if (stored) return stored;
-    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    return prefersLight() ? "light" : "dark";
   });
   useEffect(() => {
     document.documentElement.classList.toggle("light", theme === "light");
     document.documentElement.classList.toggle("dark", theme !== "light");
-    localStorage.setItem("aad-theme", theme);
+    setLocal("aad-theme", theme);
   }, [theme]);
-  return [theme, () => setTheme((t) => (t === "light" ? "dark" : "light"))];
+  const toggle = useCallback(() => setTheme((t) => (t === "light" ? "dark" : "light")), []);
+  return [theme, toggle];
 };
 
 export default function Layout() {
@@ -26,8 +28,7 @@ export default function Layout() {
   const [theme, toggleTheme] = useTheme();
 
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    if (prefersReducedMotion()) return;
     const lenis = new Lenis({ lerp: 0.11, smoothWheel: true });
     lenisRef.current = lenis;
     let raf;

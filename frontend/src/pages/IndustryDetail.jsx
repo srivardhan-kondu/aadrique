@@ -97,21 +97,27 @@ export default function IndustryDetail() {
               >
                 <div className="flex items-start justify-between gap-6">
                   <div>
-                    <p className="label-tech text-accentText">{relatedCs.sector} · {relatedCs.year}</p>
+                    <p className="label-tech text-accentText">
+                      {[relatedCs.sector, relatedCs.year].filter(Boolean).join(" · ")}
+                    </p>
                     <h2 className="mt-4 font-grotesk font-semibold text-2xl md:text-3xl max-w-2xl group-hover:text-accentText transition-colors duration-300">
                       {relatedCs.title}
                     </h2>
                   </div>
                   <ArrowUpRight className="w-6 h-6 text-mutedInk group-hover:text-accentText transition-colors duration-300 shrink-0" />
                 </div>
-                <div className="mt-10 grid grid-cols-3 gap-6 max-w-lg">
-                  {relatedCs.results.map((r) => (
-                    <div key={r.label}>
-                      <p className="font-grotesk font-semibold text-2xl text-inkStrong">{r.metric}</p>
-                      <p className="mt-1 text-[11px] uppercase tracking-wide text-mutedInk">{r.label}</p>
-                    </div>
-                  ))}
-                </div>
+                {(relatedCs.results || []).length > 0 ? (
+                  <div className="mt-10 grid grid-cols-3 gap-6 max-w-lg">
+                    {relatedCs.results.map((r) => (
+                      <div key={r.label}>
+                        <p className="font-grotesk font-semibold text-2xl text-inkStrong">{r.metric}</p>
+                        <p className="mt-1 text-[11px] uppercase tracking-wide text-mutedInk">{r.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="mt-8 text-sm text-mutedInk leading-relaxed max-w-2xl">{relatedCs.teaser}</p>
+                )}
               </Link>
             </Reveal>
           </div>

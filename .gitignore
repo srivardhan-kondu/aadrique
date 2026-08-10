@@ -86,3 +86,7 @@ android-sdk/
 credentials.json
 *.key
 .credentials
+
+# ...but template files must be committed
+!.env.example
+!**/.env.example

@@ -1,9 +1,15 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+// An unset REACT_APP_BACKEND_URL used to produce "undefined/api/..." and break every
+// request. Falling back to the current origin is the right default behind a reverse
+// proxy that forwards /api to the backend.
+const BASE = (process.env.REACT_APP_BACKEND_URL || "").replace(/\/+$/, "");
+export const API = `${BASE}/api`;
 
-const get = (path) => axios.get(`${API}${path}`).then((r) => r.data);
+const http = axios.create({ baseURL: API, timeout: 20000 });
+
+const get = (path) => http.get(path).then((r) => r.data);
 
 export const useServices = () =>
   useQuery({ queryKey: ["services"], queryFn: () => get("/services") });
@@ -36,4 +42,4 @@ export const useTestimonials = () =>
   useQuery({ queryKey: ["testimonials"], queryFn: () => get("/testimonials") });
 
 export const submitContact = (payload) =>
-  axios.post(`${API}/contact`, payload).then((r) => r.data);
+  http.post("/contact", payload).then((r) => r.data);

@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    name: Backend tests
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ping:1}).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      ENVIRONMENT: development
+      MONGO_URL: mongodb://localhost:27017
+      DB_NAME: aadrique_ci
+      CORS_ORIGINS: http://localhost:3000
+      ADMIN_TOKEN: ci-token-long-enough-for-validation-checks
+      # Raised so the contact tests don't trip the 5/min limiter.
+      CONTACT_RATE_LIMIT: "1000"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt -r backend/requirements-dev.txt
+
+      - name: Start API
+        working-directory: backend
+        run: |
+          uvicorn server:app --host 127.0.0.1 --port 8000 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8000/api/health && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8000/api/health
+
+      - name: Run tests
+        env:
+          API_BASE_URL: http://127.0.0.1:8000
+        run: pytest backend/tests -c backend/pytest.ini
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn install --frozen-lockfile --network-timeout 600000
+
+      - name: Build
+        working-directory: frontend
+        env:
+          # Same-origin build: nginx forwards /api to the backend.
+          REACT_APP_BACKEND_URL: ""
+          REACT_APP_SITE_URL: https://www.aadrique.in
+          CI: "false"
+          GENERATE_SOURCEMAP: "false"
+        run: yarn build
+
+      - name: Check sitemap is up to date
+        run: |
+          python3 scripts/generate_sitemap.py --base-url https://www.aadrique.in
+          git diff --exit-code frontend/public/sitemap.xml frontend/public/robots.txt \
+            || (echo "::error::sitemap.xml is stale — run scripts/generate_sitemap.py and commit" && exit 1)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/build
+          retention-days: 7

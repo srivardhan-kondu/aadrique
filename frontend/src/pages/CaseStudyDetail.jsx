@@ -30,6 +30,11 @@ export default function CaseStudyDetail() {
       </div>
     );
 
+  // Case studies without published metrics or a disclosed stack omit these entirely.
+  const results = cs.results || [];
+  const technologies = cs.technologies || [];
+  const focus = cs.focus || [];
+
   return (
     <div data-testid="case-study-detail-page">
       <Seo title={cs.title} description={cs.teaser} />
@@ -40,31 +45,45 @@ export default function CaseStudyDetail() {
           <Link to="/work" data-testid="case-study-back-link" className="inline-flex items-center gap-2 label-tech text-mutedInk hover:text-accentText transition-colors duration-300 mb-10">
             <ArrowLeft className="w-3.5 h-3.5" /> All work
           </Link>
-          <p className="label-tech text-accentText mb-6">{cs.sector} · {cs.year}</p>
+          <p className="label-tech text-accentText mb-6">
+            {[cs.sector, cs.year].filter(Boolean).join(" · ")}
+          </p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.05] text-4xl sm:text-5xl lg:text-6xl max-w-4xl"
             lines={[cs.title]}
           />
-          <Reveal delay={0.3}>
-            <p className="mt-8 text-sm text-mutedInk flex flex-wrap items-center gap-3">
-              {cs.client}
-              {cs.illustrative && (
-                <span className="px-2 py-0.5 border border-line text-[10px] uppercase tracking-[0.15em]" data-testid="case-study-illustrative-badge">
-                  Illustrative engagement
-                </span>
-              )}
-            </p>
-          </Reveal>
+          {(cs.client || cs.illustrative) && (
+            <Reveal delay={0.3}>
+              <p className="mt-8 text-sm text-mutedInk flex flex-wrap items-center gap-3">
+                {cs.client}
+                {cs.illustrative && (
+                  <span className="px-2 py-0.5 border border-line text-[10px] uppercase tracking-[0.15em]" data-testid="case-study-illustrative-badge">
+                    Illustrative engagement
+                  </span>
+                )}
+              </p>
+            </Reveal>
+          )}
 
-          <Reveal delay={0.4} className="mt-14 grid grid-cols-3 border border-line max-w-3xl" >
-            {cs.results.map((r, i) => (
-              <div key={r.label} className={`p-6 md:p-8 ${i > 0 ? "border-l border-line" : ""}`} data-testid={`case-study-metric-${i}`}>
-                <p className="font-grotesk font-semibold text-2xl md:text-4xl text-accentText">{r.metric}</p>
-                <p className="mt-2 text-[11px] md:text-xs uppercase tracking-wide text-mutedInk leading-tight">{r.label}</p>
-              </div>
-            ))}
-          </Reveal>
+          {results.length > 0 && (
+            <Reveal delay={0.4} className="mt-14 grid grid-cols-3 border border-line max-w-3xl">
+              {results.map((r, i) => (
+                <div key={r.label} className={`p-6 md:p-8 ${i > 0 ? "border-l border-line" : ""}`} data-testid={`case-study-metric-${i}`}>
+                  <p className="font-grotesk font-semibold text-2xl md:text-4xl text-accentText">{r.metric}</p>
+                  <p className="mt-2 text-[11px] md:text-xs uppercase tracking-wide text-mutedInk leading-tight">{r.label}</p>
+                </div>
+              ))}
+            </Reveal>
+          )}
+
+          {results.length === 0 && focus.length > 0 && (
+            <Reveal delay={0.4} className="mt-14 flex flex-wrap gap-2" data-testid="case-study-focus-chips">
+              {focus.map((f) => (
+                <span key={f} className="px-4 py-2 border border-line text-sm text-mutedInk">{f}</span>
+              ))}
+            </Reveal>
+          )}
           {cs.illustrative && (
             <p className="mt-3 text-[11px] text-mutedInk max-w-3xl" data-testid="case-study-illustrative-note">
               Representative scenario — client identity withheld; figures illustrate targeted outcomes, not verified claims.
@@ -77,13 +96,24 @@ export default function CaseStudyDetail() {
         <Block label="The challenge">{cs.challenge}</Block>
         <Block label="Our approach">{cs.approach}</Block>
         <Block label="The solution">{cs.solution}</Block>
-        <Block label="Technologies">
-          <div className="flex flex-wrap gap-2">
-            {cs.technologies.map((t) => (
-              <span key={t} className="px-4 py-2 border border-line text-sm text-mutedInk">{t}</span>
-            ))}
-          </div>
-        </Block>
+        {technologies.length > 0 && (
+          <Block label="Technologies">
+            <div className="flex flex-wrap gap-2">
+              {technologies.map((t) => (
+                <span key={t} className="px-4 py-2 border border-line text-sm text-mutedInk">{t}</span>
+              ))}
+            </div>
+          </Block>
+        )}
+        {focus.length > 0 && (
+          <Block label="Built for">
+            <div className="flex flex-wrap gap-2" data-testid="case-study-focus">
+              {focus.map((f) => (
+                <span key={f} className="px-4 py-2 border border-line text-sm text-mutedInk">{f}</span>
+              ))}
+            </div>
+          </Block>
+        )}
         {cs.testimonial && (
           <div className="py-16 md:py-24">
             <Reveal>

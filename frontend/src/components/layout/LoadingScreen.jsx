@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SITE, EASE } from "@/lib/site";
+import { getSession, setSession } from "@/lib/storage";
 
 export const LoadingScreen = () => {
-  const [show, setShow] = useState(() => !sessionStorage.getItem("aadrique-intro"));
+  const [show, setShow] = useState(() => !getSession("aadrique-intro"));
 
   useEffect(() => {
     if (!show) return;
     const t = setTimeout(() => {
-      sessionStorage.setItem("aadrique-intro", "1");
+      setSession("aadrique-intro", "1");
       setShow(false);
     }, 2100);
     return () => clearTimeout(t);

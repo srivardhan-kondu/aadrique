@@ -1,0 +1,54 @@
+# AADRIQUE API — systemd unit (no Docker).
+#
+# Install:
+#   sudo cp deploy/aadrique-api.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now aadrique-api
+#   sudo systemctl status aadrique-api
+#   journalctl -u aadrique-api -f
+#
+# Assumes the repo lives at /srv/aadrique with a virtualenv at /srv/aadrique/.venv:
+#   python3 -m venv /srv/aadrique/.venv
+#   /srv/aadrique/.venv/bin/pip install -r /srv/aadrique/backend/requirements.txt
+
+[Unit]
+Description=AADRIQUE API (FastAPI/uvicorn)
+After=network-online.target mongod.service
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/aadrique/backend
+EnvironmentFile=/srv/aadrique/backend/.env
+
+# --proxy-headers makes uvicorn read the client IP nginx forwards. Pair it with
+# TRUST_PROXY=true in .env so the rate limiter sees real IPs, and only ever trust
+# the local proxy — not arbitrary upstreams.
+ExecStart=/srv/aadrique/.venv/bin/uvicorn server:app \
+    --host 127.0.0.1 \
+    --port 8000 \
+    --workers 2 \
+    --proxy-headers \
+    --forwarded-allow-ips 127.0.0.1
+
+Restart=always
+RestartSec=3
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+ReadWritePaths=/srv/aadrique/backend
+
+[Install]
+WantedBy=multi-user.target

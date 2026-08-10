@@ -6,8 +6,9 @@ export const SITE = {
   phone: "+91 96528 86208",
   phoneHref: "+919652886208",
   url: "https://www.aadrique.in",
-  monogram:
-    "https://customer-assets-gfyr7b9c.emergentagent.net/job_182f1d8e-7a96-41f4-a6db-1239d48a0246/artifacts/76fdim1a_AADRIQUE_monogram_final.webp",
+  // Served from our own origin — an external asset host is a branding
+  // single point of failure. Absolute form is used for OG/Twitter images.
+  monogram: "/monogram.webp",
 };
 
 export const NAV_LINKS = [

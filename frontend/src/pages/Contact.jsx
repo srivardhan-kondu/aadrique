@@ -41,7 +41,17 @@ export default function Contact() {
       toast.success("Thank you — we'll reply within one business day.");
       reset();
     } catch (e) {
-      toast.error(e?.response?.data?.detail || "Something went wrong. Please try again or email us directly.");
+      // FastAPI returns a string detail for our own errors (e.g. rate limiting) but
+      // an array of objects for schema failures — rendering that raw shows
+      // "[object Object]" to the visitor.
+      const detail = e?.response?.data?.detail;
+      const message =
+        typeof detail === "string"
+          ? detail
+          : Array.isArray(detail) && typeof detail[0]?.msg === "string"
+            ? detail[0].msg
+            : "Something went wrong. Please try again or email us directly.";
+      toast.error(message);
     }
   };
 
