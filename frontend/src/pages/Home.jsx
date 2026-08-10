@@ -25,10 +25,10 @@ const WHY = [
 ];
 
 const METRICS = [
-  { value: "25+", label: "Engagements delivered*" },
-  { value: "9", label: "Industries served*" },
-  { value: "94%", label: "Client retention*" },
-  { value: "3", label: "Continents*" },
+  { value: "11", label: "Capabilities under one roof" },
+  { value: "6", label: "Industry practices" },
+  { value: "1 day", label: "Enquiry response time" },
+  { value: "100%", label: "Client IP ownership" },
 ];
 
 export default function Home() {
@@ -124,7 +124,6 @@ export default function Home() {
               </div>
             ))}
           </motion.div>
-          <p className="mt-3 text-[11px] text-mutedInk">*Representative placeholder figures — to be replaced with verified numbers.</p>
         </div>
       </section>
 

@@ -170,7 +170,7 @@ export default function Contact() {
                   <div>
                     <p className="text-xs uppercase tracking-[0.15em] text-mutedInk">Office</p>
                     <p className="mt-1 font-grotesk text-inkStrong">India</p>
-                    <p className="text-xs text-mutedInk mt-1">[Placeholder] Full office address to be supplied</p>
+                    <p className="text-xs text-mutedInk mt-1">Serving clients globally</p>
                   </div>
                 </div>
               </div>

@@ -47,7 +47,14 @@ export default function CaseStudyDetail() {
             lines={[cs.title]}
           />
           <Reveal delay={0.3}>
-            <p className="mt-8 text-sm text-mutedInk">{cs.client}</p>
+            <p className="mt-8 text-sm text-mutedInk flex flex-wrap items-center gap-3">
+              {cs.client}
+              {cs.illustrative && (
+                <span className="px-2 py-0.5 border border-line text-[10px] uppercase tracking-[0.15em]" data-testid="case-study-illustrative-badge">
+                  Illustrative engagement
+                </span>
+              )}
+            </p>
           </Reveal>
 
           <Reveal delay={0.4} className="mt-14 grid grid-cols-3 border border-line max-w-3xl" >
@@ -58,6 +65,11 @@ export default function CaseStudyDetail() {
               </div>
             ))}
           </Reveal>
+          {cs.illustrative && (
+            <p className="mt-3 text-[11px] text-mutedInk max-w-3xl" data-testid="case-study-illustrative-note">
+              Representative scenario — client identity withheld; figures illustrate targeted outcomes, not verified claims.
+            </p>
+          )}
         </div>
       </section>
 

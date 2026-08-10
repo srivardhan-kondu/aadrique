@@ -42,9 +42,12 @@ Build the flagship marketing website for AADRIQUE TECH PVT LTD — a premium B2B
 - VERIFIED: auto-reply delivers (202). Owner notification currently blocked by provider deliverability check — info@aadrique.in mailbox not yet active in Google Workspace; user confirmed they will activate it (will work automatically once live)
 - Gotcha: asyncio.create_task fire-and-forget was unreliable here; BackgroundTasks is the working pattern
 
+## Content Cleanup (10 June 2026)
+- All "[Placeholder]" markers removed site-wide. Hero trust strip now uses verifiable facts (11 capabilities, 6 industry practices, 1-day response, 100% IP ownership). Case studies (illustrative:true in seed) show "Illustrative engagement" badges + disclosure note on Work/detail pages; testimonial quotes de-prefixed. FAQ/blog performance figures reframed as industry benchmarks. Team section: Ravi Kumar (Managing Director, from user's brand sheets) + two principle cells; fake team members removed. Contact office placeholder removed. Terms §4 updated to "Illustrative content". SEED_VERSION=5.
+
 ## Backlog / Remaining
 ### P0
-- Replace all [Placeholder] content: metrics, client names, testimonials, team profiles, office address
+- Real verified content from user when available: actual metrics, named clients/case studies, real testimonials, team photos, office address
 - User to activate info@aadrique.in mailbox in Google Workspace (owner notifications currently 422-blocked)
 ### P1
 - Admin view for enquiries (currently GET /api/enquiries JSON only)

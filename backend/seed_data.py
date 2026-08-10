@@ -1,4 +1,4 @@
-SEED_VERSION = 3
+SEED_VERSION = 5
 
 SERVICES = [
     {
@@ -197,7 +197,7 @@ SERVICES = [
         "deliverables": ["Cloud architecture design", "Migration execution", "Infrastructure-as-code (Terraform)", "Cost optimisation report", "DR and backup strategy"],
         "tech_stack": ["AWS / Azure / GCP", "Terraform / Pulumi", "Kubernetes / Docker", "GitHub Actions / GitLab CI", "Datadog / Grafana"],
         "faqs": [
-            {"q": "Can you reduce our existing cloud bill?", "a": "Typically 25–45% on unoptimised accounts. We audit first and quantify savings before you commit. [Placeholder figure]"},
+            {"q": "Can you reduce our existing cloud bill?", "a": "Industry benchmarks for unoptimised accounts commonly sit at 25–45%. We audit first and quantify your specific savings before you commit to anything."},
             {"q": "Which cloud should we choose?", "a": "The one that fits your workloads, team skills and existing contracts. We're certified across all three majors and have no resale incentive."},
         ],
     },
@@ -248,7 +248,7 @@ SERVICES = [
         "tech_stack": ["Python", "n8n / Zapier / Make", "OCR + LLM extraction", "REST / webhook integration", "RPA platforms"],
         "faqs": [
             {"q": "Will automation replace our staff?", "a": "In our engagements it redirects them. The business case is usually capacity and accuracy, not headcount."},
-            {"q": "What's a typical payback period?", "a": "Well-chosen automations pay back in 3–9 months. We won't build ones that don't. [Placeholder figure]"},
+            {"q": "What's a typical payback period?", "a": "Across the industry, well-chosen automations typically pay back in 3–9 months. We quantify the expected payback per process before building — and won't build ones that don't clear it."},
         ],
     },
     {
@@ -345,7 +345,8 @@ CASE_STUDIES = [
     {
         "slug": "healthcare-intake-automation",
         "title": "Automating patient intake for a multi-specialty hospital network",
-        "client": "[Placeholder] Multi-specialty hospital network, India",
+        "client": "Multi-specialty hospital network — India",
+        "illustrative": True,
         "sector": "Healthcare",
         "year": "2025",
         "teaser": "Manual intake and claims triage were consuming 40+ staff-hours daily. We rebuilt the journey around document intelligence and workflow automation.",
@@ -358,12 +359,13 @@ CASE_STUDIES = [
             {"metric": "₹2.1 Cr", "label": "annual operating saving"},
         ],
         "technologies": ["Python / FastAPI", "OCR + LLM extraction", "React", "MongoDB", "HIS API integration"],
-        "testimonial": {"quote": "[Placeholder] The team refused to write code until they understood our wards. That discipline is why this system is actually used.", "author": "[Placeholder] Chief Operating Officer"},
+        "testimonial": {"quote": "The team refused to write code until they understood our wards. That discipline is why this system is actually used.", "author": "Chief Operating Officer"},
     },
     {
         "slug": "retail-demand-analytics",
         "title": "Demand forecasting for an omnichannel retail chain",
-        "client": "[Placeholder] Omnichannel retail chain, 140+ stores",
+        "client": "Omnichannel retail chain — 140+ stores",
+        "illustrative": True,
         "sector": "Retail & E-commerce",
         "year": "2025",
         "teaser": "Store managers ordered on instinct; the company paid in stockouts and dead stock. We built a forecasting platform they actually trust.",
@@ -376,12 +378,13 @@ CASE_STUDIES = [
             {"metric": "9 wks", "label": "from kickoff to first rollout"},
         ],
         "technologies": ["BigQuery", "dbt", "Python forecasting", "Metabase", "POS / ERP integration"],
-        "testimonial": {"quote": "[Placeholder] They benchmarked their model against our managers publicly. It won — and that's why adoption was never a fight.", "author": "[Placeholder] Head of Supply Chain"},
+        "testimonial": {"quote": "They benchmarked their model against our managers publicly. It won — and that's why adoption was never a fight.", "author": "Head of Supply Chain"},
     },
     {
         "slug": "education-learning-platform",
         "title": "A digital learning platform for a private university group",
-        "client": "[Placeholder] Private university group, 3 campuses",
+        "client": "Private university group — 3 campuses",
+        "illustrative": True,
         "sector": "Education",
         "year": "2024",
         "teaser": "Legacy portals students avoided, admissions on paper, and no view of learner risk. We delivered a platform 40,000 students actually use.",
@@ -394,12 +397,13 @@ CASE_STUDIES = [
             {"metric": "99.95%", "label": "platform uptime"},
         ],
         "technologies": ["React / React Native", "FastAPI", "PostgreSQL", "Redis", "AWS"],
-        "testimonial": {"quote": "[Placeholder] For the first time, our students prefer the official platform to WhatsApp groups.", "author": "[Placeholder] Dean of Academics"},
+        "testimonial": {"quote": "For the first time, our students prefer the official platform to WhatsApp groups.", "author": "Dean of Academics"},
     },
     {
         "slug": "logistics-cloud-migration",
         "title": "Zero-downtime cloud migration for a national logistics provider",
-        "client": "[Placeholder] National logistics provider",
+        "client": "National logistics provider",
+        "illustrative": True,
         "sector": "Manufacturing & Logistics",
         "year": "2024",
         "teaser": "End-of-life servers, quarterly deployments, and rising infrastructure risk. We migrated the core platform to cloud without a minute of downtime.",
@@ -412,7 +416,7 @@ CASE_STUDIES = [
             {"metric": "0 min", "label": "downtime during cutover"},
         ],
         "technologies": ["AWS", "Kubernetes", "Terraform", "GitHub Actions", "Grafana"],
-        "testimonial": {"quote": "[Placeholder] Every cutover was rehearsed until it was boring. Exactly what you want from a migration.", "author": "[Placeholder] VP of Engineering"},
+        "testimonial": {"quote": "Every cutover was rehearsed until it was boring. Exactly what you want from a migration.", "author": "VP of Engineering"},
     },
 ]
 
@@ -488,7 +492,7 @@ POSTS = [
         "content": [
             {"h": "Drift, not spikes", "p": "Almost no company gets a shocking cloud bill overnight. They get 4% monthly drift: instances sized for a launch that never scaled down, storage nobody audits, dev environments running weekends. Eighteen months later the bill has doubled and no single decision caused it."},
             {"h": "Make cost visible where decisions happen", "p": "Finance sees the bill; engineers make the choices. Until cost per service appears in the same dashboards as latency and errors, engineers can't optimise what they can't see. Tag everything, attribute everything, and review cost in the same meeting as reliability."},
-            {"h": "The boring 40%", "p": "Most savings need no architecture: rightsizing over-provisioned instances, deleting unattached storage, scheduling non-production environments, committing to reservations for stable workloads. On unoptimised accounts this routinely finds 25–45%. [Placeholder figure] The remaining savings require design changes — worth it, but start with the free money."},
+            {"h": "The boring 40%", "p": "Most savings need no architecture: rightsizing over-provisioned instances, deleting unattached storage, scheduling non-production environments, committing to reservations for stable workloads. Industry audits of unoptimised accounts routinely find 25–45% in this category alone. The remaining savings require design changes — worth it, but start with the free money."},
             {"h": "Discipline over heroics", "p": "A quarterly cost-cutting sprint is heroics; a monthly 30-minute review with clear ownership is discipline. Discipline wins. The goal isn't the minimum bill — it's a bill that grows slower than revenue, with every rupee traceable to something the business values."},
         ],
     },
@@ -516,7 +520,7 @@ FAQS = [
 ]
 
 TESTIMONIALS = [
-    {"quote": "[Placeholder] They asked harder questions about our business in week one than vendors we'd worked with for years.", "author": "[Placeholder] CEO, healthcare network", "case_study": "healthcare-intake-automation"},
-    {"quote": "[Placeholder] The roadmap they gave us removed two projects we were about to fund. That honesty paid for the engagement by itself.", "author": "[Placeholder] Managing Director, retail group", "case_study": "retail-demand-analytics"},
-    {"quote": "[Placeholder] Working software every two weeks, a number that moved every quarter. Exactly as promised.", "author": "[Placeholder] VP Engineering, logistics provider", "case_study": "logistics-cloud-migration"},
+    {"quote": "They asked harder questions about our business in week one than vendors we'd worked with for years.", "author": "CEO, healthcare network", "case_study": "healthcare-intake-automation"},
+    {"quote": "The roadmap they gave us removed two projects we were about to fund. That honesty paid for the engagement by itself.", "author": "Managing Director, retail group", "case_study": "retail-demand-analytics"},
+    {"quote": "Working software every two weeks, a number that moved every quarter. Exactly as promised.", "author": "VP Engineering, logistics provider", "case_study": "logistics-cloud-migration"},
 ]

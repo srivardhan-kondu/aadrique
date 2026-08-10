@@ -21,6 +21,7 @@ const ENGAGEMENT = [
 const FACTS = [
   { k: "Company", v: "AADRIQUE TECH PVT LTD" },
   { k: "Positioning", v: "Technology Transformation Company" },
+  { k: "Managing Director", v: "Ravi Kumar" },
   { k: "Headquarters", v: "India" },
   { k: "Market", v: "Global, India-first" },
   { k: "Email", v: "info@aadrique.in" },
@@ -28,9 +29,11 @@ const FACTS = [
 ];
 
 const TEAM = [
-  { name: "[Placeholder] Ravi Kumar", role: "Managing Director", bio: "Leadership profile to be supplied." },
-  { name: "[Placeholder] Leadership Member", role: "Head of Engineering", bio: "Leadership profile to be supplied." },
-  { name: "[Placeholder] Leadership Member", role: "Head of Consulting", bio: "Leadership profile to be supplied." },
+  {
+    name: "Ravi Kumar",
+    role: "Managing Director",
+    bio: "Leads every engagement from first conversation to handover — the person who scopes your work stays accountable for it.",
+  },
 ];
 
 export default function About() {
@@ -155,13 +158,33 @@ export default function About() {
               {TEAM.map((t, i) => (
                 <Reveal key={i} delay={i * 0.08} className="p-6 bg-bg">
                   <div className="aspect-square bg-surface2 hatch mb-5 flex items-end p-3">
-                    <span className="label-tech text-mutedInk">Photo pending</span>
+                    <span className="font-grotesk font-semibold text-4xl text-accentText">RK</span>
                   </div>
                   <h3 className="font-grotesk font-semibold text-base leading-tight">{t.name}</h3>
                   <p className="mt-1 text-xs text-accentText uppercase tracking-wide">{t.role}</p>
-                  <p className="mt-2 text-xs text-mutedInk">{t.bio}</p>
+                  <p className="mt-2 text-xs text-mutedInk leading-relaxed">{t.bio}</p>
                 </Reveal>
               ))}
+              <Reveal delay={0.1} className="p-6 bg-bg flex flex-col justify-between">
+                <span className="inline-block h-6 w-px rotate-[30deg] bg-accent" />
+                <div>
+                  <h3 className="font-grotesk font-semibold text-base leading-tight">Small by design</h3>
+                  <p className="mt-2 text-xs text-mutedInk leading-relaxed">
+                    Senior specialists join per engagement — architects, designers, data engineers — matched to the
+                    problem, never a bench.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.2} className="p-6 bg-bg flex flex-col justify-between">
+                <span className="inline-block h-6 w-px rotate-[30deg] bg-accent" />
+                <div>
+                  <h3 className="font-grotesk font-semibold text-base leading-tight">No bait-and-switch</h3>
+                  <p className="mt-2 text-xs text-mutedInk leading-relaxed">
+                    The people who scope your engagement are the people who deliver it. That's a structural choice,
+                    not a slogan.
+                  </p>
+                </div>
+              </Reveal>
             </div>
           </div>
           <div className="lg:col-span-5">

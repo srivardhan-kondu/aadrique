@@ -29,7 +29,8 @@ export default function Work() {
           <Reveal delay={0.4} className="mt-10 max-w-2xl">
             <p className="text-mutedInk text-base md:text-lg leading-relaxed">
               Every engagement below is told the same way: the challenge, the approach, and the numbers that moved.
-              Client details are anonymised placeholders pending publication approval.
+              Engagements marked "illustrative" are representative scenarios — client identities are withheld until
+              publication approval, and figures shown are not verified claims.
             </p>
           </Reveal>
         </div>
@@ -71,7 +72,14 @@ export default function Work() {
                         {cs.title}
                       </h2>
                       <p className="mt-4 text-sm text-mutedInk leading-relaxed max-w-xl">{cs.teaser}</p>
-                      <p className="mt-6 text-xs text-mutedInk">{cs.client}</p>
+                      <p className="mt-6 text-xs text-mutedInk flex items-center gap-3">
+                        {cs.client}
+                        {cs.illustrative && (
+                          <span className="px-2 py-0.5 border border-line text-[10px] uppercase tracking-[0.15em]" data-testid={`work-illustrative-badge-${cs.slug}`}>
+                            Illustrative
+                          </span>
+                        )}
+                      </p>
                     </div>
                     <div className="lg:col-span-5 flex flex-col justify-between">
                       <div className="grid grid-cols-3 gap-4">
