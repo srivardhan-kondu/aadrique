@@ -36,11 +36,17 @@ Build the flagship marketing website for AADRIQUE TECH PVT LTD — a premium B2B
 - Legal: Privacy Policy + Terms with last-updated dates
 - data-testid coverage on all interactive elements
 
+## Email Delivery (10 June 2026)
+- Emergent-managed Resend via integration proxy (EMAIL_BASE_URL constant, X-Email-Key header, EMERGENT_EMAIL_KEY/EMAIL_FROM_NAME/OWNER_EMAIL in backend/.env)
+- On POST /api/contact: FastAPI BackgroundTasks send (1) owner notification to OWNER_EMAIL (info@aadrique.in) with reply-to=enquirer, (2) branded auto-reply to enquirer with reply-to=owner. Email failure never blocks form submission (logged only)
+- VERIFIED: auto-reply delivers (202). Owner notification currently blocked by provider deliverability check — info@aadrique.in mailbox not yet active in Google Workspace; user confirmed they will activate it (will work automatically once live)
+- Gotcha: asyncio.create_task fire-and-forget was unreliable here; BackgroundTasks is the working pattern
+
 ## Backlog / Remaining
 ### P0
 - Replace all [Placeholder] content: metrics, client names, testimonials, team profiles, office address
+- User to activate info@aadrique.in mailbox in Google Workspace (owner notifications currently 422-blocked)
 ### P1
-- Email delivery for enquiries via Emergent-managed Resend + autoresponder
 - Admin view for enquiries (currently GET /api/enquiries JSON only)
 - GA4 + cookie consent banner (needs GA4 property from user)
 - reCAPTCHA v3 (needs keys)
