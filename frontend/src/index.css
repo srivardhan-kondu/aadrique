@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg: #060606;
+    --surface: #101010;
+    --surface-2: #161616;
+    --line: rgba(246, 240, 222, 0.14);
+    --line-strong: rgba(246, 240, 222, 0.28);
+    --ink: #f2ecdd;
+    --ink-strong: #ffffff;
+    --muted: rgba(242, 236, 221, 0.55);
+    --accent: #fa942c;
+    --accent-text: #fa942c;
+    --accent-ink: #0a0a0a;
+
+    --background: 0 0% 2.4%;
+    --foreground: 44 30% 91%;
+    --card: 0 0% 6.3%;
+    --card-foreground: 44 30% 91%;
+    --popover: 0 0% 6.3%;
+    --popover-foreground: 44 30% 91%;
+    --primary: 29 96% 58%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 44 30% 91%;
+    --muted-hsl: 0 0% 9%;
+    --muted-foreground: 44 15% 60%;
+    --accent-hsl: 0 0% 9%;
+    --accent-foreground: 44 30% 91%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 44 10% 20%;
+    --input: 44 10% 20%;
+    --ring: 29 96% 58%;
+    --radius: 0rem;
+}
+
+.light {
+    --bg: #f6f0de;
+    --surface: #ffffff;
+    --surface-2: #fbf7ec;
+    --line: rgba(10, 10, 10, 0.14);
+    --line-strong: rgba(10, 10, 10, 0.32);
+    --ink: #0a0a0a;
+    --ink-strong: #000000;
+    --muted: rgba(10, 10, 10, 0.58);
+    --accent: #fa942c;
+    --accent-text: #ad5d05;
+    --accent-ink: #0a0a0a;
+
+    --background: 44 57% 92%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 4%;
+    --border: 0 0% 80%;
+    --input: 0 0% 80%;
+    --muted-foreground: 0 0% 38%;
+}
+
+html {
+    scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+        background-color 0.4s ease,
+        color 0.4s ease;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--ink-strong);
+}
+
+::selection {
+    background: #fa942c;
+    color: #0a0a0a;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* grain overlay */
+.grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* diagonal hatch — brand motion signature (~60deg thin lines) */
+.hatch {
+    background-image: repeating-linear-gradient(
+        60deg,
+        var(--line) 0px,
+        var(--line) 1px,
+        transparent 1px,
+        transparent 14px
+    );
+}
+.hatch-accent {
+    background-image: repeating-linear-gradient(
+        60deg,
+        rgba(250, 148, 44, 0.5) 0px,
+        rgba(250, 148, 44, 0.5) 1px,
+        transparent 1px,
+        transparent 14px
+    );
+}
+
+.diag-line {
+    width: 1px;
+    background: var(--accent);
+    transform: rotate(30deg);
+    transform-origin: center;
+}
+
+.text-outline {
+    -webkit-text-stroke: 1px var(--line-strong);
+    color: transparent;
+}
+.text-outline-accent {
+    -webkit-text-stroke: 1px rgba(250, 148, 44, 0.55);
+    color: transparent;
+}
+
+/* editorial marquee */
+@keyframes marquee-x {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-x 70s linear infinite;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+.link-underline {
+    position: relative;
+}
+.link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.label-tech {
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.7rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none;
+    }
+    html {
+        scroll-behavior: auto !important;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@layer base {
+    * {
+        border-color: var(--line);
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}
