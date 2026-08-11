@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Menu, X, ArrowUpRight } from "lucide-react";
-import { NAV_LINKS, EASE } from "@/lib/site";
+import { NAV_LINKS, EASE, SITE } from "@/lib/site";
 
 export const Header = ({ theme, toggleTheme }) => {
   const [open, setOpen] = useState(false);
@@ -22,11 +22,18 @@ export const Header = ({ theme, toggleTheme }) => {
         style={{ backgroundColor: "color-mix(in srgb, var(--bg) 72%, transparent)" }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 md:h-[72px] flex items-center justify-between">
-          <Link to="/" data-testid="header-logo-link" className="flex items-center gap-3 group">
-            <span className="relative font-grotesk font-semibold tracking-[0.35em] text-inkStrong text-sm md:text-base">
+          <Link to="/" data-testid="header-logo-link" className="flex items-center gap-1.5 group">
+            <span className="font-grotesk font-semibold tracking-[0.35em] text-inkStrong text-sm md:text-base">
               AADRIQUE
-              <span className="absolute -right-3 top-0 h-3 w-px rotate-[30deg] bg-accent" />
             </span>
+            <img
+              src={SITE.monogram}
+              alt=""
+              aria-hidden="true"
+              width="18"
+              height="18"
+              className="h-4 md:h-[18px] w-auto shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">

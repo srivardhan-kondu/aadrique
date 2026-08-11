@@ -46,7 +46,7 @@ export default function Home() {
       <Seo />
 
       {/* ── Hero ─────────────────────────────────────── */}
-      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-end overflow-hidden border-b border-line">
+      <section ref={heroRef} className="relative overflow-hidden border-b border-line">
         <motion.img
           src={SITE.monogram}
           alt=""
@@ -58,9 +58,9 @@ export default function Home() {
           style={{ y: yHatch }}
           className="absolute right-0 top-0 h-full w-16 md:w-28 hatch-accent opacity-30 pointer-events-none"
         />
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full pt-40 pb-16 md:pb-20 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full pt-28 md:pt-32 pb-16 md:pb-20 relative">
           <motion.p
-            className="label-tech text-accentText mb-8 flex items-center gap-4"
+            className="label-tech text-accentText mb-7 flex items-center gap-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.8 }}
@@ -73,24 +73,24 @@ export default function Home() {
             as="h1"
             delay={0.25}
             className="font-grotesk font-semibold tracking-tight leading-[0.98] text-5xl sm:text-6xl lg:text-7xl max-w-5xl"
-            lines={["Technology that solves", "real business problems.", "Nothing else."]}
+            lines={["Technology that solves", "real business problems."]}
           />
 
           <motion.p
-            className="mt-10 max-w-xl text-mutedInk text-base md:text-lg leading-relaxed"
+            className="mt-8 max-w-xl text-mutedInk text-base md:text-lg leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.8, ease: EASE }}
+            transition={{ delay: 0.7, duration: 0.8, ease: EASE }}
           >
             We don't push AI into businesses. We understand yours first, identify the opportunities,
             and build practical technology that creates measurable value.
           </motion.p>
 
           <motion.div
-            className="mt-10 flex flex-wrap gap-4"
+            className="mt-9 flex flex-wrap gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8, ease: EASE }}
+            transition={{ delay: 0.85, duration: 0.8, ease: EASE }}
           >
             <Link
               to="/contact"
@@ -111,11 +111,11 @@ export default function Home() {
 
           {/* trust strip */}
           <motion.div
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 border border-line"
+            className="mt-14 md:mt-16 grid grid-cols-2 md:grid-cols-4 border border-line"
             data-testid="hero-trust-strip"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.9 }}
+            transition={{ delay: 1, duration: 0.9 }}
           >
             {METRICS.map((m, i) => (
               <div key={m.label} className={`p-6 md:p-8 ${i > 0 ? "border-l border-line" : ""} ${i >= 2 ? "max-md:border-t max-md:border-line" : ""} ${i === 2 ? "max-md:border-l-0" : ""}`}>
@@ -131,19 +131,19 @@ export default function Home() {
       <Marquee items={["Build", "Transform", "Scale", "AADRIQUE"]} />
 
       {/* ── Approach: numbered manifesto ─────────────── */}
-      <section className="py-24 md:py-36" data-testid="approach-section">
+      <section className="py-16 md:py-24" data-testid="approach-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <Reveal>
             <p className="label-tech text-accentText mb-6">The AADRIQUE approach</p>
             <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl max-w-3xl">
-              Understand first.<br />
+              Understand the business.<br />
               <span className="text-outline">Then recommend.</span>
             </h2>
           </Reveal>
-          <div className="mt-16 md:mt-20 border-t border-line">
+          <div className="mt-12 md:mt-14 border-t border-line">
             {APPROACH.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.05}>
-                <div className="group grid md:grid-cols-12 gap-4 md:gap-8 py-10 md:py-14 border-b border-line hover:bg-surface transition-colors duration-500" data-testid={`approach-step-${step.n}`}>
+                <div className={`group grid md:grid-cols-12 gap-4 md:gap-8 py-9 md:py-12 hover:bg-surface transition-colors duration-500 ${i < APPROACH.length - 1 ? "border-b border-line" : ""}`} data-testid={`approach-step-${step.n}`}>
                   <div className="md:col-span-2">
                     <span className="font-grotesk font-medium text-5xl md:text-6xl text-outline-accent group-hover:text-accentText transition-colors duration-500" style={{ WebkitTextStroke: undefined }}>
                       {step.n}
@@ -163,9 +163,9 @@ export default function Home() {
       </section>
 
       {/* ── Capabilities grid ────────────────────────── */}
-      <section className="py-24 md:py-36 border-t border-line" data-testid="capabilities-section">
+      <section className="py-16 md:py-24 border-t border-line" data-testid="capabilities-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-16">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
             <div>
               <p className="label-tech text-accentText mb-6">Capabilities</p>
               <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">What we build.</h2>
@@ -217,19 +217,19 @@ export default function Home() {
       </section>
 
       {/* ── Industries ───────────────────────────────── */}
-      <section className="py-24 md:py-36 border-t border-line" data-testid="industries-section">
+      <section className="py-16 md:py-24 border-t border-line" data-testid="industries-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <Reveal>
             <p className="label-tech text-accentText mb-6">Industries</p>
             <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl max-w-2xl">Where we work.</h2>
           </Reveal>
-          <div className="mt-16 border-t border-line">
+          <div className="mt-12 border-t border-line">
             {industries.map((ind, i) => (
               <Reveal key={ind.slug} delay={i * 0.04}>
                 <Link
                   to={`/industries/${ind.slug}`}
                   data-testid={`industry-row-${ind.slug}`}
-                  className="group flex items-center justify-between py-8 border-b border-line hover:pl-4 transition-[padding] duration-500"
+                  className={`group flex items-center justify-between py-7 hover:pl-4 transition-[padding] duration-500 ${i < industries.length - 1 ? "border-b border-line" : ""}`}
                 >
                   <div className="flex items-baseline gap-6">
                     <span className="label-tech text-mutedInk">{String(i + 1).padStart(2, "0")}</span>
@@ -247,9 +247,9 @@ export default function Home() {
       </section>
 
       {/* ── Selected work ────────────────────────────── */}
-      <section className="py-24 md:py-36 border-t border-line bg-surface" data-testid="selected-work-section">
+      <section className="py-16 md:py-24 border-t border-line bg-surface" data-testid="selected-work-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-16">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
             <div>
               <p className="label-tech text-accentText mb-6">Selected work</p>
               <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">What we've built.</h2>
@@ -296,7 +296,7 @@ export default function Home() {
       </section>
 
       {/* ── Why AADRIQUE ─────────────────────────────── */}
-      <section className="py-24 md:py-36 border-t border-line" data-testid="why-section">
+      <section className="py-16 md:py-24 border-t border-line" data-testid="why-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-14">
           <div className="lg:col-span-5">
             <Reveal>
@@ -325,12 +325,12 @@ export default function Home() {
       </section>
 
       {/* ── Insights preview ─────────────────────────── */}
-      <section className="py-24 md:py-36 border-t border-line" data-testid="insights-preview-section">
+      <section className="py-16 md:py-24 border-t border-line" data-testid="insights-preview-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-16">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
             <div>
               <p className="label-tech text-accentText mb-6">Insights</p>
-              <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">Thinking, in public.</h2>
+              <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">Think in public.</h2>
             </div>
             <Link to="/insights" data-testid="insights-view-all-link" className="link-underline font-grotesk text-sm uppercase tracking-[0.12em] text-mutedInk hover:text-inkStrong transition-colors duration-300">
               All insights →

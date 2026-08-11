@@ -21,7 +21,8 @@ const ENGAGEMENT = [
 const FACTS = [
   { k: "Company", v: "AADRIQUE TECH PVT LTD" },
   { k: "Positioning", v: "Technology Transformation Company" },
-  { k: "Managing Director", v: "Ravi Kumar" },
+  { k: "Founder", v: "Guna Sanjay Sagar" },
+  { k: "Co-Founder", v: "Geetha Reddy" },
   { k: "Headquarters", v: "India" },
   { k: "Market", v: "Global, India-first" },
   { k: "Email", v: "info@aadrique.in" },
@@ -30,9 +31,31 @@ const FACTS = [
 
 const TEAM = [
   {
-    name: "Ravi Kumar",
-    role: "Managing Director",
+    name: "Guna Sanjay Sagar",
+    initials: "GS",
+    role: "Founder",
     bio: "Leads every engagement from first conversation to handover — the person who scopes your work stays accountable for it.",
+  },
+  {
+    name: "Geetha Reddy",
+    initials: "GR",
+    role: "Co-Founder",
+    bio: "Co-founded AADRIQUE and works alongside the founder on how engagements are scoped, staffed and delivered.",
+  },
+];
+
+// Rendered with the same cell structure as the leadership card so the three
+// columns share one baseline instead of drifting with copy length.
+const PRINCIPLES = [
+  {
+    title: "Small by design",
+    label: "Team structure",
+    desc: "Senior specialists join per engagement — architects, designers, data engineers — matched to the problem, never a bench.",
+  },
+  {
+    title: "No bait-and-switch",
+    label: "Delivery model",
+    desc: "The people who scope your engagement are the people who deliver it. That's a structural choice, not a slogan.",
   },
 ];
 
@@ -154,37 +177,27 @@ export default function About() {
               <p className="label-tech text-accentText mb-6">Leadership</p>
               <h2 className="font-grotesk font-semibold tracking-tight text-3xl md:text-4xl">The people you'll actually work with.</h2>
             </Reveal>
-            <div className="mt-12 grid sm:grid-cols-3 gap-px bg-line border border-line">
+            <div className="mt-12 grid sm:grid-cols-2 gap-px bg-line border border-line">
               {TEAM.map((t, i) => (
-                <Reveal key={i} delay={i * 0.08} className="p-6 bg-bg">
-                  <div className="aspect-square bg-surface2 hatch mb-5 flex items-end p-3">
-                    <span className="font-grotesk font-semibold text-4xl text-accentText">RK</span>
+                <Reveal key={t.name} delay={i * 0.08} className="p-6 bg-bg">
+                  <div className="h-40 md:h-44 bg-surface2 hatch mb-5 flex items-end p-3">
+                    <span className="font-grotesk font-semibold text-4xl text-accentText">{t.initials}</span>
                   </div>
                   <h3 className="font-grotesk font-semibold text-base leading-tight">{t.name}</h3>
                   <p className="mt-1 text-xs text-accentText uppercase tracking-wide">{t.role}</p>
-                  <p className="mt-2 text-xs text-mutedInk leading-relaxed">{t.bio}</p>
+                  <p className="mt-3 text-xs text-mutedInk leading-relaxed">{t.bio}</p>
                 </Reveal>
               ))}
-              <Reveal delay={0.1} className="p-6 bg-bg flex flex-col justify-between">
-                <span className="inline-block h-6 w-px rotate-[30deg] bg-accent" />
-                <div>
-                  <h3 className="font-grotesk font-semibold text-base leading-tight">Small by design</h3>
-                  <p className="mt-2 text-xs text-mutedInk leading-relaxed">
-                    Senior specialists join per engagement — architects, designers, data engineers — matched to the
-                    problem, never a bench.
-                  </p>
-                </div>
-              </Reveal>
-              <Reveal delay={0.2} className="p-6 bg-bg flex flex-col justify-between">
-                <span className="inline-block h-6 w-px rotate-[30deg] bg-accent" />
-                <div>
-                  <h3 className="font-grotesk font-semibold text-base leading-tight">No bait-and-switch</h3>
-                  <p className="mt-2 text-xs text-mutedInk leading-relaxed">
-                    The people who scope your engagement are the people who deliver it. That's a structural choice,
-                    not a slogan.
-                  </p>
-                </div>
-              </Reveal>
+              {PRINCIPLES.map((p, i) => (
+                <Reveal key={p.title} delay={(TEAM.length + i) * 0.08} className="p-6 bg-bg">
+                  <div className="h-40 md:h-44 mb-5 flex items-end">
+                    <span className="inline-block h-10 w-px rotate-[30deg] bg-accent" />
+                  </div>
+                  <h3 className="font-grotesk font-semibold text-base leading-tight">{p.title}</h3>
+                  <p className="mt-1 text-xs text-accentText uppercase tracking-wide">{p.label}</p>
+                  <p className="mt-3 text-xs text-mutedInk leading-relaxed">{p.desc}</p>
+                </Reveal>
+              ))}
             </div>
           </div>
           <div className="lg:col-span-5">
