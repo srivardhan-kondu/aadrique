@@ -15,10 +15,10 @@ export default function ArticleDetail() {
   const { data: posts = [] } = usePosts();
 
   if (isLoading)
-    return <div className="pt-48 pb-32 text-center text-mutedInk" data-testid="article-loading">Loading…</div>;
+    return <div className="pt-32 pb-20 text-center text-mutedInk" data-testid="article-loading">Loading…</div>;
   if (isError || !post)
     return (
-      <div className="pt-48 pb-32 text-center" data-testid="article-not-found">
+      <div className="pt-32 pb-20 text-center" data-testid="article-not-found">
         <p className="text-mutedInk">Article not found.</p>
         <Link to="/insights" className="mt-4 inline-block text-accentText link-underline">← All insights</Link>
       </div>
@@ -43,10 +43,10 @@ export default function ArticleDetail() {
     <div data-testid="article-detail-page">
       <Seo title={post.title} description={post.excerpt} jsonLd={jsonLd} />
 
-      <section className="pt-40 pb-16 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch opacity-40 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 lg:px-10">
-          <Link to="/insights" data-testid="article-back-link" className="inline-flex items-center gap-2 label-tech text-mutedInk hover:text-accentText transition-colors duration-300 mb-10">
+          <Link to="/insights" data-testid="article-back-link" className="inline-flex items-center gap-2 label-tech text-mutedInk hover:text-accentText transition-colors duration-300 mb-8">
             <ArrowLeft className="w-3.5 h-3.5" /> Insights
           </Link>
           <p className="label-tech text-accentText mb-6">{post.category}</p>
@@ -68,11 +68,11 @@ export default function ArticleDetail() {
         </div>
       </section>
 
-      <article className="py-16 md:py-24" data-testid="article-body">
+      <article className="py-12 md:py-16" data-testid="article-body">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="font-grotesk text-xl md:text-2xl leading-relaxed text-inkStrong mb-14">{post.excerpt}</p>
+          <p className="font-grotesk text-xl md:text-2xl leading-relaxed text-inkStrong mb-10">{post.excerpt}</p>
           {post.content.map((block, i) => (
-            <Reveal key={i} className="mb-12">
+            <Reveal key={i} className="mb-8">
               <h2 className="font-grotesk font-semibold text-2xl mb-4 flex items-baseline gap-4">
                 <span className="label-tech text-accentText">0{i + 1}</span>
                 {block.h}
@@ -84,9 +84,9 @@ export default function ArticleDetail() {
       </article>
 
       {related.length > 0 && (
-        <section className="pb-24 border-t border-line pt-16" data-testid="article-related-section">
+        <section className="pb-14 border-t border-line pt-10" data-testid="article-related-section">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <p className="label-tech text-accentText mb-10">Related reading</p>
+            <p className="label-tech text-accentText mb-8">Related reading</p>
             <div className="grid md:grid-cols-2 gap-px bg-line border border-line">
               {related.map((p) => (
                 <Link key={p.slug} to={`/insights/${p.slug}`} data-testid={`article-related-${p.slug}`} className="group p-8 bg-bg hover:bg-surface transition-colors duration-500">

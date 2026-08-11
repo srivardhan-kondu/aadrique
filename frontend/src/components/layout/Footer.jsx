@@ -33,8 +33,8 @@ const COLS = [
 
 export const Footer = () => (
   <footer data-testid="site-footer" className="bg-[#060606] text-[#F2ECDD] border-t border-[rgba(246,240,222,0.14)]">
-    <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-10">
-      <div className="grid lg:grid-cols-12 gap-14">
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-14 pb-8">
+      <div className="grid lg:grid-cols-12 gap-10">
         <div className="lg:col-span-5">
           <p className="font-grotesk font-semibold tracking-[0.35em] text-xl text-white">AADRIQUE</p>
           <p className="label-tech mt-3 text-[#FA942C]">Build. Transform. Scale.</p>
@@ -75,7 +75,7 @@ export const Footer = () => (
         </div>
       </div>
 
-      <div className="mt-20 overflow-hidden select-none" aria-hidden="true">
+      <div className="mt-12 overflow-hidden select-none" aria-hidden="true">
         <p
           className="font-grotesk font-bold tracking-[0.12em] text-center whitespace-nowrap leading-none text-[clamp(3rem,11vw,10rem)]"
           style={{ WebkitTextStroke: "1px rgba(246,240,222,0.16)", color: "transparent" }}
@@ -84,7 +84,7 @@ export const Footer = () => (
         </p>
       </div>
 
-      <div className="mt-10 pt-8 border-t border-[rgba(246,240,222,0.12)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="mt-8 pt-6 border-t border-[rgba(246,240,222,0.12)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <p className="text-xs text-[rgba(242,236,221,0.45)]">
           © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
         </p>

@@ -12,7 +12,7 @@ export const Marquee = ({ items, className = "" }) => {
     </div>
   );
   return (
-    <div data-testid="editorial-marquee" className={`overflow-hidden border-y border-line py-8 ${className}`}>
+    <div data-testid="editorial-marquee" className={`overflow-hidden border-y border-line py-7 ${className}`}>
       <div className="marquee-track">{[0, 1].map(row)}</div>
     </div>
   );

@@ -25,10 +25,10 @@ export default function Insights() {
     <div data-testid="insights-page">
       <Seo title="Insights" description="Business-first thinking on AI strategy, digital transformation, data and engineering from AADRIQUE." />
 
-      <section className="pt-40 pb-20 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch opacity-40 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-accentText mb-8">Insights</p>
+          <p className="label-tech text-accentText mb-6">Insights</p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.02] text-5xl sm:text-6xl lg:text-7xl max-w-4xl"
@@ -37,9 +37,9 @@ export default function Insights() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-center justify-between gap-6 mb-14">
+          <Reveal className="flex flex-wrap items-center justify-between gap-6 mb-10">
             <div className="flex flex-wrap gap-2">
               {categories.map((c) => (
                 <button
@@ -72,7 +72,7 @@ export default function Insights() {
           {isLoading ? (
             <p className="text-mutedInk" data-testid="insights-loading">Loading articles…</p>
           ) : filtered.length === 0 ? (
-            <p className="text-mutedInk py-12" data-testid="insights-empty">No articles match your search.</p>
+            <p className="text-mutedInk py-10" data-testid="insights-empty">No articles match your search.</p>
           ) : (
             <div className="border-t border-line" data-testid="insights-list">
               {filtered.map((p, i) => (
@@ -80,7 +80,7 @@ export default function Insights() {
                   <Link
                     to={`/insights/${p.slug}`}
                     data-testid={`insight-row-${p.slug}`}
-                    className="group grid md:grid-cols-12 gap-4 md:gap-8 py-10 border-b border-line hover:bg-surface transition-colors duration-500"
+                    className="group grid md:grid-cols-12 gap-4 md:gap-8 py-8 border-b border-line hover:bg-surface transition-colors duration-500"
                   >
                     <div className="md:col-span-3">
                       <p className="label-tech text-accentText">{p.category}</p>

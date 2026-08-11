@@ -18,16 +18,16 @@ export default function Work() {
     <div data-testid="work-page">
       <Seo title="Work" description="Selected work — platforms and automation delivered across enterprise, public sector, education, health and community organisations." />
 
-      <section className="pt-40 pb-20 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch-accent opacity-25 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-accentText mb-8">Selected work</p>
+          <p className="label-tech text-accentText mb-6">Selected work</p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.02] text-5xl sm:text-6xl lg:text-7xl max-w-4xl"
             lines={["Outcomes,", "not activity."]}
           />
-          <Reveal delay={0.4} className="mt-10 max-w-2xl">
+          <Reveal delay={0.4} className="mt-8 max-w-2xl">
             <p className="text-mutedInk text-base md:text-lg leading-relaxed">
               Every engagement below is told the same way: the challenge, the approach, and what we built. Client
               identities are withheld unless we hold publication approval.
@@ -42,9 +42,9 @@ export default function Work() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap gap-2 mb-14">
+          <Reveal className="flex flex-wrap gap-2 mb-10">
             {sectors.map((s) => (
               <button
                 key={s}
@@ -70,7 +70,7 @@ export default function Work() {
                   <Link
                     to={`/work/${cs.slug}`}
                     data-testid={`work-card-${cs.slug}`}
-                    className="group grid lg:grid-cols-12 gap-8 border border-line p-8 md:p-12 hover:border-accent transition-colors duration-300 bg-bg"
+                    className="group grid lg:grid-cols-12 gap-8 border border-line p-8 md:p-10 hover:border-accent transition-colors duration-300 bg-bg"
                   >
                     <div className="lg:col-span-7">
                       <p className="label-tech text-accentText">

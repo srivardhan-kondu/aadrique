@@ -58,7 +58,7 @@ export default function Home() {
           style={{ y: yHatch }}
           className="absolute right-0 top-0 h-full w-16 md:w-28 hatch-accent opacity-30 pointer-events-none"
         />
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full pt-28 md:pt-32 pb-16 md:pb-20 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full pt-24 md:pt-28 pb-14 md:pb-16 relative">
           <motion.p
             className="label-tech text-accentText mb-7 flex items-center gap-4"
             initial={{ opacity: 0 }}
@@ -111,7 +111,7 @@ export default function Home() {
 
           {/* trust strip */}
           <motion.div
-            className="mt-14 md:mt-16 grid grid-cols-2 md:grid-cols-4 border border-line"
+            className="mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 border border-line"
             data-testid="hero-trust-strip"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -131,7 +131,7 @@ export default function Home() {
       <Marquee items={["Build", "Transform", "Scale", "AADRIQUE"]} />
 
       {/* ── Approach: numbered manifesto ─────────────── */}
-      <section className="py-16 md:py-24" data-testid="approach-section">
+      <section className="py-12 md:py-16" data-testid="approach-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <Reveal>
             <p className="label-tech text-accentText mb-6">The AADRIQUE approach</p>
@@ -140,10 +140,10 @@ export default function Home() {
               <span className="text-outline">Then recommend.</span>
             </h2>
           </Reveal>
-          <div className="mt-12 md:mt-14 border-t border-line">
+          <div className="mt-10 md:mt-12 border-t border-line">
             {APPROACH.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.05}>
-                <div className={`group grid md:grid-cols-12 gap-4 md:gap-8 py-9 md:py-12 hover:bg-surface transition-colors duration-500 ${i < APPROACH.length - 1 ? "border-b border-line" : ""}`} data-testid={`approach-step-${step.n}`}>
+                <div className={`group grid md:grid-cols-12 gap-4 md:gap-8 py-7 md:py-10 hover:bg-surface transition-colors duration-500 ${i < APPROACH.length - 1 ? "border-b border-line" : ""}`} data-testid={`approach-step-${step.n}`}>
                   <div className="md:col-span-2">
                     <span className="font-grotesk font-medium text-5xl md:text-6xl text-outline-accent group-hover:text-accentText transition-colors duration-500" style={{ WebkitTextStroke: undefined }}>
                       {step.n}
@@ -163,9 +163,9 @@ export default function Home() {
       </section>
 
       {/* ── Capabilities grid ────────────────────────── */}
-      <section className="py-16 md:py-24 border-t border-line" data-testid="capabilities-section">
+      <section className="py-12 md:py-16 border-t border-line" data-testid="capabilities-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-8">
             <div>
               <p className="label-tech text-accentText mb-6">Capabilities</p>
               <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">What we build.</h2>
@@ -182,13 +182,13 @@ export default function Home() {
                   <Link
                     to={`/capabilities/${s.slug}`}
                     data-testid={`capability-card-${s.slug}`}
-                    className="group flex flex-col justify-between h-full min-h-[220px] p-8 bg-bg hover:bg-surface transition-colors duration-500"
+                    className="group flex flex-col justify-between h-full min-h-[190px] p-8 bg-bg hover:bg-surface transition-colors duration-500"
                   >
                     <div className="flex items-start justify-between">
                       <Icon className="w-6 h-6 text-accentText" strokeWidth={1.5} />
                       <span className="label-tech text-mutedInk">{String(i + 1).padStart(2, "0")}</span>
                     </div>
-                    <div className="mt-10">
+                    <div className="mt-8">
                       <h3 className="font-grotesk font-semibold text-xl group-hover:text-accentText transition-colors duration-300">{s.title}</h3>
                       <p className="mt-2 text-sm text-mutedInk leading-relaxed">{s.tagline}</p>
                       <span className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-mutedInk opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -203,10 +203,10 @@ export default function Home() {
               <Link
                 to="/contact"
                 data-testid="capability-card-cta"
-                className="group flex flex-col justify-between h-full min-h-[220px] p-8 bg-accent text-[#0A0A0A]"
+                className="group flex flex-col justify-between h-full min-h-[190px] p-8 bg-accent text-[#0A0A0A]"
               >
                 <ArrowUpRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" strokeWidth={1.5} />
-                <div className="mt-10">
+                <div className="mt-8">
                   <h3 className="font-grotesk font-semibold text-xl">Not sure where to start?</h3>
                   <p className="mt-2 text-sm text-[#0A0A0A]/70 leading-relaxed">Book a consultation — we'll help you find it.</p>
                 </div>
@@ -217,19 +217,19 @@ export default function Home() {
       </section>
 
       {/* ── Industries ───────────────────────────────── */}
-      <section className="py-16 md:py-24 border-t border-line" data-testid="industries-section">
+      <section className="py-12 md:py-16 border-t border-line" data-testid="industries-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <Reveal>
             <p className="label-tech text-accentText mb-6">Industries</p>
             <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl max-w-2xl">Where we work.</h2>
           </Reveal>
-          <div className="mt-12 border-t border-line">
+          <div className="mt-10 border-t border-line">
             {industries.map((ind, i) => (
               <Reveal key={ind.slug} delay={i * 0.04}>
                 <Link
                   to={`/industries/${ind.slug}`}
                   data-testid={`industry-row-${ind.slug}`}
-                  className={`group flex items-center justify-between py-7 hover:pl-4 transition-[padding] duration-500 ${i < industries.length - 1 ? "border-b border-line" : ""}`}
+                  className={`group flex items-center justify-between py-6 hover:pl-4 transition-[padding] duration-500 ${i < industries.length - 1 ? "border-b border-line" : ""}`}
                 >
                   <div className="flex items-baseline gap-6">
                     <span className="label-tech text-mutedInk">{String(i + 1).padStart(2, "0")}</span>
@@ -247,9 +247,9 @@ export default function Home() {
       </section>
 
       {/* ── Selected work ────────────────────────────── */}
-      <section className="py-16 md:py-24 border-t border-line bg-surface" data-testid="selected-work-section">
+      <section className="py-12 md:py-16 border-t border-line bg-surface" data-testid="selected-work-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-8">
             <div>
               <p className="label-tech text-accentText mb-6">Selected work</p>
               <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">What we've built.</h2>
@@ -274,7 +274,7 @@ export default function Home() {
                   <p className="mt-4 text-sm text-mutedInk leading-relaxed">{cs.teaser}</p>
                 </div>
                 {(cs.results || []).length > 0 ? (
-                  <div className="mt-10 pt-6 border-t border-line grid grid-cols-3 gap-4">
+                  <div className="mt-8 pt-6 border-t border-line grid grid-cols-3 gap-4">
                     {cs.results.map((r) => (
                       <div key={r.label}>
                         <p className="font-grotesk font-semibold text-lg md:text-xl text-inkStrong">{r.metric}</p>
@@ -283,7 +283,7 @@ export default function Home() {
                     ))}
                   </div>
                 ) : (
-                  <div className="mt-10 pt-6 border-t border-line flex flex-wrap gap-2">
+                  <div className="mt-8 pt-6 border-t border-line flex flex-wrap gap-2">
                     {(cs.focus || []).map((f) => (
                       <span key={f} className="text-[11px] uppercase tracking-wide text-mutedInk">{f}</span>
                     ))}
@@ -296,8 +296,8 @@ export default function Home() {
       </section>
 
       {/* ── Why AADRIQUE ─────────────────────────────── */}
-      <section className="py-16 md:py-24 border-t border-line" data-testid="why-section">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-14">
+      <section className="py-12 md:py-16 border-t border-line" data-testid="why-section">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
             <Reveal>
               <p className="label-tech text-accentText mb-6">Why AADRIQUE</p>
@@ -325,9 +325,9 @@ export default function Home() {
       </section>
 
       {/* ── Insights preview ─────────────────────────── */}
-      <section className="py-16 md:py-24 border-t border-line" data-testid="insights-preview-section">
+      <section className="py-12 md:py-16 border-t border-line" data-testid="insights-preview-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-12">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-8">
             <div>
               <p className="label-tech text-accentText mb-6">Insights</p>
               <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl">Think in public.</h2>

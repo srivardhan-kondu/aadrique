@@ -8,14 +8,14 @@ export const CTABand = ({
 }) => (
   <section className="relative bg-[#FA942C] text-[#0A0A0A] overflow-hidden" data-testid="cta-band">
     <div className="absolute inset-y-0 right-0 w-1/3 hatch opacity-30 pointer-events-none" style={{ "--line": "rgba(10,10,10,0.4)" }} />
-    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 md:py-32">
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-12 md:py-16">
       <Reveal>
         <p className="label-tech mb-6 text-[#0A0A0A]/70">Start the conversation</p>
         <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl max-w-3xl text-[#0A0A0A]">
           {title}
         </h2>
         <p className="mt-6 max-w-xl text-[#0A0A0A]/75 text-base md:text-lg leading-relaxed">{subtitle}</p>
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-8 flex flex-wrap gap-4">
           <Link
             to="/contact"
             data-testid="cta-band-book-btn"

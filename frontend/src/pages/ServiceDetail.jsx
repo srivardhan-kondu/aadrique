@@ -13,10 +13,10 @@ export default function ServiceDetail() {
   const { data: caseStudies = [] } = useCaseStudies();
 
   if (isLoading)
-    return <div className="pt-48 pb-32 text-center text-mutedInk" data-testid="service-loading">Loading…</div>;
+    return <div className="pt-32 pb-20 text-center text-mutedInk" data-testid="service-loading">Loading…</div>;
   if (isError || !service)
     return (
-      <div className="pt-48 pb-32 text-center" data-testid="service-not-found">
+      <div className="pt-32 pb-20 text-center" data-testid="service-not-found">
         <p className="text-mutedInk">Capability not found.</p>
         <Link to="/capabilities" className="mt-4 inline-block text-accentText link-underline">← All capabilities</Link>
       </div>
@@ -37,13 +37,13 @@ export default function ServiceDetail() {
     <div data-testid="service-detail-page">
       <Seo title={service.title} description={service.summary} jsonLd={jsonLd} />
 
-      <section className="pt-40 pb-20 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch opacity-40 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Link to="/capabilities" data-testid="service-back-link" className="inline-flex items-center gap-2 label-tech text-mutedInk hover:text-accentText transition-colors duration-300 mb-10">
+          <Link to="/capabilities" data-testid="service-back-link" className="inline-flex items-center gap-2 label-tech text-mutedInk hover:text-accentText transition-colors duration-300 mb-8">
             <ArrowLeft className="w-3.5 h-3.5" /> Capabilities
           </Link>
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6">
             <Icon className="w-8 h-8 text-accentText" strokeWidth={1.5} />
             <p className="label-tech text-accentText">{service.tagline}</p>
           </div>
@@ -59,7 +59,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* Problem framing */}
-      <section className="py-20 md:py-28 border-b border-line" data-testid="service-problem-section">
+      <section className="py-12 md:py-16 border-b border-line" data-testid="service-problem-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4">
             <Reveal><p className="label-tech text-accentText">The problem</p></Reveal>
@@ -73,7 +73,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* What we do */}
-      <section className="py-20 md:py-28 border-b border-line" data-testid="service-whatwedo-section">
+      <section className="py-12 md:py-16 border-b border-line" data-testid="service-whatwedo-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4">
             <Reveal><p className="label-tech text-accentText">What we do</p></Reveal>
@@ -92,9 +92,9 @@ export default function ServiceDetail() {
       </section>
 
       {/* Process */}
-      <section className="py-20 md:py-28 border-b border-line bg-surface" data-testid="service-process-section">
+      <section className="py-12 md:py-16 border-b border-line bg-surface" data-testid="service-process-section">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal><p className="label-tech text-accentText mb-12">Process</p></Reveal>
+          <Reveal><p className="label-tech text-accentText mb-8">Process</p></Reveal>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             {service.process.map((p, i) => (
               <Reveal key={p.step} delay={i * 0.06} className="p-8 bg-bg">
@@ -108,10 +108,10 @@ export default function ServiceDetail() {
       </section>
 
       {/* Deliverables + stack */}
-      <section className="py-20 md:py-28 border-b border-line" data-testid="service-deliverables-section">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14">
+      <section className="py-12 md:py-16 border-b border-line" data-testid="service-deliverables-section">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-10">
           <Reveal>
-            <p className="label-tech text-accentText mb-8">Deliverables</p>
+            <p className="label-tech text-accentText mb-6">Deliverables</p>
             <ul className="border-t border-line">
               {service.deliverables.map((d, i) => (
                 <li key={i} className="flex items-baseline gap-4 py-4 border-b border-line">
@@ -122,7 +122,7 @@ export default function ServiceDetail() {
             </ul>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="label-tech text-accentText mb-8">Typical stack</p>
+            <p className="label-tech text-accentText mb-6">Typical stack</p>
             <div className="flex flex-wrap gap-2">
               {service.tech_stack.map((t) => (
                 <span key={t} className="px-4 py-2 border border-line text-sm text-mutedInk hover:border-accent hover:text-accentText transition-colors duration-300">
@@ -131,7 +131,7 @@ export default function ServiceDetail() {
               ))}
             </div>
             {related.length > 0 && (
-              <div className="mt-14">
+              <div className="mt-10">
                 <p className="label-tech text-accentText mb-6">Related work</p>
                 <div className="space-y-px">
                   {related.map((cs) => (
@@ -148,9 +148,9 @@ export default function ServiceDetail() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 md:py-28" data-testid="service-faq-section">
+      <section className="py-12 md:py-16" data-testid="service-faq-section">
         <div className="max-w-4xl mx-auto px-6 lg:px-10">
-          <Reveal><p className="label-tech text-accentText mb-10">Common questions</p></Reveal>
+          <Reveal><p className="label-tech text-accentText mb-8">Common questions</p></Reveal>
           <Accordion type="single" collapsible className="border-t border-line">
             {service.faqs.map((f, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="border-b border-line">

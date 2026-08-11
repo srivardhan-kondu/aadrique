@@ -39,10 +39,10 @@ export default function Legal({ page }) {
     <div data-testid={`legal-page-${page}`}>
       <Seo title={doc.title} description={`${doc.title} for AADRIQUE TECH PVT LTD.`} />
 
-      <section className="pt-40 pb-16 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch opacity-40 pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-accentText mb-8">Legal</p>
+          <p className="label-tech text-accentText mb-6">Legal</p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.05] text-4xl sm:text-5xl lg:text-6xl"
@@ -54,10 +54,10 @@ export default function Legal({ page }) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
           {doc.sections.map((s, i) => (
-            <Reveal key={i} className="mb-10">
+            <Reveal key={i} className="mb-8">
               <h2 className="font-grotesk font-semibold text-xl mb-3">{s.h}</h2>
               <p className="text-mutedInk leading-relaxed">{s.p}</p>
             </Reveal>

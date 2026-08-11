@@ -59,10 +59,10 @@ export default function Contact() {
     <div data-testid="contact-page">
       <Seo title="Contact" description="Book a consultation with AADRIQUE — tell us about your business and we'll map where technology can move your numbers." />
 
-      <section className="pt-40 pb-16 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch-accent opacity-25 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-accentText mb-8">Contact</p>
+          <p className="label-tech text-accentText mb-6">Contact</p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.02] text-5xl sm:text-6xl lg:text-7xl max-w-4xl"
@@ -77,14 +77,14 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-16">
+      <section className="py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10">
           {/* Form */}
           <Reveal className="lg:col-span-7">
-            <form onSubmit={handleSubmit(onSubmit)} noValidate data-testid="contact-form" className="space-y-10">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate data-testid="contact-form" className="space-y-8">
               <input type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" {...register("website")} />
 
-              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
                 <div>
                   <label htmlFor="name" className={labelCls}>Name *</label>
                   <input id="name" data-testid="contact-name-input" className={inputCls} placeholder="Your full name" {...register("name")} />
@@ -159,7 +159,7 @@ export default function Contact() {
           {/* Direct details */}
           <Reveal delay={0.15} className="lg:col-span-5">
             <div className="border border-line p-8 md:p-10 bg-surface">
-              <p className="label-tech text-accentText mb-8">Direct</p>
+              <p className="label-tech text-accentText mb-6">Direct</p>
               <div className="space-y-7">
                 <a href={`mailto:${SITE.email}`} data-testid="contact-direct-email" className="flex items-start gap-4 group">
                   <Mail className="w-5 h-5 text-accentText mt-0.5" strokeWidth={1.5} />
@@ -184,7 +184,7 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-              <div className="mt-10 pt-8 border-t border-line">
+              <div className="mt-8 pt-6 border-t border-line">
                 <p className="label-tech text-accentText mb-4">Prefer to talk first?</p>
                 <p className="text-sm text-mutedInk leading-relaxed">
                   Mention "consultation" in your message and we'll send a scheduling link for a free 30-minute call.

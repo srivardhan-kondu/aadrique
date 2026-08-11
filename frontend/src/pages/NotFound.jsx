@@ -13,10 +13,10 @@ export default function NotFound() {
         noindex
       />
 
-      <section className="pt-40 pb-20 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch-accent opacity-25 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-accentText mb-8">Error 404</p>
+          <p className="label-tech text-accentText mb-6">Error 404</p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.02] text-5xl sm:text-6xl lg:text-7xl max-w-4xl"
@@ -31,7 +31,7 @@ export default function NotFound() {
             <Link
               to="/"
               data-testid="not-found-home-link"
-              className="group mt-10 inline-flex items-center gap-3 bg-accent text-[#0A0A0A] px-10 py-4 font-grotesk font-medium tracking-wide hover:bg-inkStrong hover:text-bg transition-colors duration-300"
+              className="group mt-8 inline-flex items-center gap-3 bg-accent text-[#0A0A0A] px-10 py-4 font-grotesk font-medium tracking-wide hover:bg-inkStrong hover:text-bg transition-colors duration-300"
             >
               Back to home
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -40,9 +40,9 @@ export default function NotFound() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-mutedInk mb-10">Or try one of these</p>
+          <p className="label-tech text-mutedInk mb-8">Or try one of these</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-line">
             {[...NAV_LINKS, { label: "Contact", to: "/contact" }].map((link) => (
               <Link

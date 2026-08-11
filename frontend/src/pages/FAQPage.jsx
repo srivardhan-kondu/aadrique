@@ -23,10 +23,10 @@ export default function FAQPage() {
     <div data-testid="faq-page">
       <Seo title="FAQ" description="Common questions about working with AADRIQUE — engagements, pricing, technology and delivery." jsonLd={jsonLd} />
 
-      <section className="pt-40 pb-20 border-b border-line relative overflow-hidden">
+      <section className="pt-24 md:pt-28 pb-12 md:pb-14 border-b border-line relative overflow-hidden">
         <div className="absolute right-0 top-0 h-full w-20 hatch opacity-40 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="label-tech text-accentText mb-8">FAQ</p>
+          <p className="label-tech text-accentText mb-6">FAQ</p>
           <LineReveal
             as="h1"
             className="font-grotesk font-semibold tracking-tight leading-[1.02] text-5xl sm:text-6xl lg:text-7xl max-w-4xl"
@@ -35,13 +35,13 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           {isLoading ? (
             <p className="text-mutedInk" data-testid="faq-loading">Loading questions…</p>
           ) : (
             groups.map((group, gi) => (
-              <Reveal key={group.category} delay={gi * 0.05} className="grid lg:grid-cols-12 gap-8 py-12 border-b border-line last:border-b-0">
+              <Reveal key={group.category} delay={gi * 0.05} className="grid lg:grid-cols-12 gap-8 py-10 border-b border-line last:border-b-0">
                 <div className="lg:col-span-4">
                   <p className="label-tech text-accentText">{String(gi + 1).padStart(2, "0")}</p>
                   <h2 className="mt-4 font-grotesk font-semibold text-2xl md:text-3xl max-w-xs">{group.category}</h2>
