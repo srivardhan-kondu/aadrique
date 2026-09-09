@@ -6,7 +6,8 @@ import { Seo } from "@/components/Seo";
 import { LineReveal, Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Marquee } from "@/components/Marquee";
 import { CTABand } from "@/components/CTABand";
-import { useServices, useIndustries, useCaseStudies, usePosts } from "@/lib/api";
+import { ProductCard } from "@/components/ProductCard";
+import { useServices, useIndustries, useCaseStudies, useProducts, usePosts } from "@/lib/api";
 import { serviceIcon } from "@/lib/icons";
 import { SITE, EASE } from "@/lib/site";
 
@@ -35,6 +36,7 @@ export default function Home() {
   const { data: services = [] } = useServices();
   const { data: industries = [] } = useIndustries();
   const { data: caseStudies = [] } = useCaseStudies();
+  const { data: products = [] } = useProducts();
   const { data: posts = [] } = usePosts();
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -109,6 +111,30 @@ export default function Home() {
             </Link>
           </motion.div>
 
+          {/* Flagship product, surfaced in the hero. min-h reserves the row so
+              the async load can't shove the trust strip down on first paint. */}
+          <div className="mt-8 min-h-[46px]">
+            {products.slice(0, 1).map((p) => (
+              <motion.div
+                key={p.slug}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.95, duration: 0.8 }}
+              >
+                <Link
+                  to={`/products/${p.slug}`}
+                  data-testid="hero-product-link"
+                  className="group inline-flex flex-wrap items-center gap-3 border border-line px-4 py-2.5 hover:border-accent transition-colors duration-300"
+                >
+                  <span className="label-tech text-accentText">Flagship product</span>
+                  <span className="font-grotesk font-medium text-inkStrong">{p.name}</span>
+                  <span className="hidden sm:inline text-sm text-mutedInk">{p.tagline}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-mutedInk group-hover:text-accentText transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
           {/* trust strip */}
           <motion.div
             className="mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 border border-line"
@@ -129,6 +155,41 @@ export default function Home() {
 
       {/* ── Marquee ──────────────────────────────────── */}
       <Marquee items={["Build", "Transform", "Scale", "AADRIQUE"]} />
+
+      {/* ── Products ─────────────────────────────────── */}
+      {products.length > 0 && (
+        <section className="relative overflow-hidden border-b border-line bg-surface" data-testid="products-section">
+          <div className="absolute right-0 top-0 h-full w-16 md:w-28 hatch-accent opacity-25 pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 md:py-20 relative">
+            <Reveal className="flex flex-wrap items-end justify-between gap-6 mb-10">
+              <div>
+                <p className="label-tech text-accentText mb-6 flex items-center gap-4">
+                  <span className="inline-block h-4 w-px rotate-[30deg] bg-accent" />
+                  AADRIQUE Products
+                </p>
+                <h2 className="font-grotesk font-semibold tracking-tight text-4xl md:text-5xl lg:text-6xl max-w-3xl">
+                  Our products.
+                </h2>
+              </div>
+              <Link
+                to="/products"
+                data-testid="products-view-all-link"
+                className="link-underline font-grotesk text-sm uppercase tracking-[0.12em] text-mutedInk hover:text-inkStrong transition-colors duration-300"
+              >
+                All products →
+              </Link>
+            </Reveal>
+
+            <div className="space-y-px" data-testid="home-products-grid">
+              {products.slice(0, 3).map((p, i) => (
+                <Reveal key={p.slug} delay={i * 0.06}>
+                  <ProductCard product={p} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Approach: numbered manifesto ─────────────── */}
       <section className="py-12 md:py-16" data-testid="approach-section">

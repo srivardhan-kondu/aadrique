@@ -29,6 +29,12 @@ export const useCaseStudies = () =>
 export const useCaseStudy = (slug) =>
   useQuery({ queryKey: ["case-study", slug], queryFn: () => get(`/case-studies/${slug}`), enabled: !!slug });
 
+export const useProducts = () =>
+  useQuery({ queryKey: ["products"], queryFn: () => get("/products") });
+
+export const useProduct = (slug) =>
+  useQuery({ queryKey: ["product", slug], queryFn: () => get(`/products/${slug}`), enabled: !!slug });
+
 export const usePosts = () =>
   useQuery({ queryKey: ["posts"], queryFn: () => get("/posts") });
 

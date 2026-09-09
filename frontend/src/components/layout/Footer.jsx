@@ -13,6 +13,13 @@ const COLS = [
     ],
   },
   {
+    title: "Products",
+    links: [
+      { label: "RepoIQ", to: "/products/repoiq" },
+      { label: "All products", to: "/products" },
+    ],
+  },
+  {
     title: "Capabilities",
     links: [
       { label: "AI Consulting", to: "/capabilities/ai-consulting" },
@@ -53,7 +60,7 @@ export const Footer = () => (
           </div>
         </div>
 
-        <div className="lg:col-span-7 grid sm:grid-cols-3 gap-10">
+        <div className="lg:col-span-7 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {COLS.map((col) => (
             <div key={col.title}>
               <p className="label-tech text-[rgba(242,236,221,0.45)] mb-5">{col.title}</p>

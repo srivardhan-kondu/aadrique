@@ -17,7 +17,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "backend"))
 
-from seed_data import CASE_STUDIES, INDUSTRIES, POSTS, SERVICES  # noqa: E402
+from seed_data import CASE_STUDIES, INDUSTRIES, POSTS, PRODUCTS, SERVICES  # noqa: E402
 
 PUBLIC = REPO / "frontend" / "public"
 
@@ -26,6 +26,7 @@ STATIC_ROUTES = [
     ("/capabilities", "0.9", "monthly"),
     ("/industries", "0.9", "monthly"),
     ("/work", "0.8", "monthly"),
+    ("/products", "0.9", "monthly"),
     ("/insights", "0.8", "weekly"),
     ("/about", "0.7", "monthly"),
     ("/faq", "0.6", "monthly"),
@@ -40,6 +41,7 @@ def build_urls():
     urls += [(f"/capabilities/{s['slug']}", "0.8", "monthly") for s in SERVICES]
     urls += [(f"/industries/{s['slug']}", "0.7", "monthly") for s in INDUSTRIES]
     urls += [(f"/work/{s['slug']}", "0.7", "monthly") for s in CASE_STUDIES]
+    urls += [(f"/products/{p['slug']}", "0.8", "monthly") for p in PRODUCTS]
     urls += [(f"/insights/{p['slug']}", "0.6", "monthly") for p in POSTS]
     return urls
 
