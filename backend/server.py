@@ -15,7 +15,7 @@ from pymongo.errors import DuplicateKeyError
 from starlette.middleware.cors import CORSMiddleware
 
 from config import settings
-from seed_data import SEED_VERSION, SERVICES, INDUSTRIES, CASE_STUDIES, POSTS, FAQS, TESTIMONIALS
+from seed_data import SEED_VERSION, SERVICES, INDUSTRIES, CASE_STUDIES, PRODUCTS, POSTS, FAQS, TESTIMONIALS
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("aadrique")
@@ -296,6 +296,19 @@ async def get_case_study(slug: str):
     return doc
 
 
+@api_router.get("/products")
+async def list_products():
+    return await db.products.find({}, {"_id": 0}).sort("order", 1).to_list(50)
+
+
+@api_router.get("/products/{slug}")
+async def get_product(slug: str):
+    doc = await db.products.find_one({"slug": slug}, {"_id": 0})
+    if not doc:
+        raise HTTPException(404, "Product not found")
+    return doc
+
+
 @api_router.get("/posts")
 async def list_posts(category: Optional[str] = Query(default=None, max_length=80)):
     q = {"category": category} if category else {}
@@ -376,7 +389,7 @@ async def list_enquiries(
 
 async def ensure_indexes():
     await db.meta.create_index("key", unique=True)
-    for name in ("services", "industries", "case_studies", "posts"):
+    for name in ("services", "industries", "case_studies", "products", "posts"):
         await db[name].create_index("slug", unique=True)
     await db.case_studies.create_index("sector")
     await db.posts.create_index([("date", -1)])
@@ -402,11 +415,12 @@ async def seed_database():
         logger.info("Seed already claimed by another worker — skipping.")
         return
 
-    for name in ("services", "industries", "case_studies", "posts", "faqs", "testimonials"):
+    for name in ("services", "industries", "case_studies", "products", "posts", "faqs", "testimonials"):
         await db[name].delete_many({})
     await db.services.insert_many([{**s, "order": i} for i, s in enumerate(SERVICES)])
     await db.industries.insert_many([{**s, "order": i} for i, s in enumerate(INDUSTRIES)])
     await db.case_studies.insert_many([{**s, "order": i} for i, s in enumerate(CASE_STUDIES)])
+    await db.products.insert_many([{**s, "order": i} for i, s in enumerate(PRODUCTS)])
     await db.posts.insert_many([dict(p) for p in POSTS])
     await db.faqs.insert_many([{**s, "order": i} for i, s in enumerate(FAQS)])
     await db.testimonials.insert_many([dict(t) for t in TESTIMONIALS])

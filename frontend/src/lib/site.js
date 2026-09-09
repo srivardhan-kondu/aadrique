@@ -13,6 +13,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Capabilities", to: "/capabilities" },
+  { label: "Products", to: "/products" },
   { label: "Industries", to: "/industries" },
   { label: "Work", to: "/work" },
   { label: "Insights", to: "/insights" },

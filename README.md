@@ -49,6 +49,7 @@ API_BASE_URL=http://127.0.0.1:8000 ADMIN_TOKEN=... \
 | GET | `/api/services`, `/api/services/{slug}` | public |
 | GET | `/api/industries`, `/api/industries/{slug}` | public |
 | GET | `/api/case-studies`, `/api/case-studies/{slug}` | public |
+| GET | `/api/products`, `/api/products/{slug}` | public |
 | GET | `/api/posts`, `/api/posts/{slug}` | public |
 | GET | `/api/faqs`, `/api/testimonials` | public |
 | POST | `/api/contact` | public, rate limited, honeypot |

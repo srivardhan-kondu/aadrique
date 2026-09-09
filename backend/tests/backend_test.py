@@ -149,6 +149,53 @@ class TestCaseStudies:
         assert filtered and all(d["sector"] == sector for d in filtered)
 
 
+# ---------- Products ----------
+PRODUCT_CONTENT_KEYS = [
+    "name", "category", "tagline", "summary", "problem", "highlights",
+    "what_it_does", "how_it_works", "comparison", "commitments", "audience",
+    "delivery", "tech_stack", "faqs", "saas", "headlines", "commitments_intro",
+]
+
+
+class TestProducts:
+    def test_list(self, s):
+        r = s.get(f"{API}/products")
+        assert r.status_code == 200
+        data = r.json()
+        assert data, "no products seeded"
+        for d in data:
+            assert "slug" in d and "name" in d and "_id" not in d
+
+    def test_slugs_unique(self, s):
+        slugs = [d["slug"] for d in s.get(f"{API}/products").json()]
+        assert len(slugs) == len(set(slugs)), f"duplicate product slug in {slugs}"
+
+    def test_detail(self, s):
+        r = s.get(f"{API}/products/repoiq")
+        assert r.status_code == 200
+        d = r.json()
+        for k in PRODUCT_CONTENT_KEYS:
+            assert k in d, f"missing {k}"
+
+    def test_every_product_is_complete(self, s):
+        """A half-filled product renders as empty bands on a public page."""
+        for listed in s.get(f"{API}/products").json():
+            d = s.get(f"{API}/products/{listed['slug']}").json()
+            for k in PRODUCT_CONTENT_KEYS:
+                assert d.get(k), f"{listed['slug']} is missing {k}"
+
+    def test_comparison_rows_match_headers(self, s):
+        """A ragged row would silently shift columns in the rendered table."""
+        for listed in s.get(f"{API}/products").json():
+            comparison = s.get(f"{API}/products/{listed['slug']}").json()["comparison"]
+            for row in comparison["rows"]:
+                assert len(row["values"]) == len(comparison["headers"]), \
+                    f"{listed['slug']}: {row['capability']}"
+
+    def test_404(self, s):
+        assert s.get(f"{API}/products/does-not-exist").status_code == 404
+
+
 # ---------- Posts ----------
 class TestPosts:
     def test_list_sorted(self, s):

@@ -11,6 +11,8 @@ import Industries from "@/pages/Industries";
 import IndustryDetail from "@/pages/IndustryDetail";
 import Work from "@/pages/Work";
 import CaseStudyDetail from "@/pages/CaseStudyDetail";
+import Products from "@/pages/Products";
+import ProductDetail from "@/pages/ProductDetail";
 import Insights from "@/pages/Insights";
 import ArticleDetail from "@/pages/ArticleDetail";
 import FAQPage from "@/pages/FAQPage";
@@ -35,6 +37,8 @@ function App() {
               <Route path="/industries/:slug" element={<IndustryDetail />} />
               <Route path="/work" element={<Work />} />
               <Route path="/work/:slug" element={<CaseStudyDetail />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:slug" element={<ProductDetail />} />
               <Route path="/insights" element={<Insights />} />
               <Route path="/insights/:slug" element={<ArticleDetail />} />
               <Route path="/faq" element={<FAQPage />} />
