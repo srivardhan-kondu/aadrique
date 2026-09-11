@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Seo } from "@/components/Seo";
 import { LineReveal, Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CTABand } from "@/components/CTABand";
@@ -60,6 +60,21 @@ export default function Capabilities() {
                   </StaggerItem>
                 );
               })}
+              <StaggerItem>
+                <Link
+                  to="/products"
+                  data-testid="capabilities-grid-card-products"
+                  className="group flex flex-col justify-between h-full min-h-[230px] p-8 md:p-10 bg-accent text-[#0A0A0A]"
+                >
+                  <ArrowUpRight className="w-7 h-7 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" strokeWidth={1.5} />
+                  <div className="mt-8">
+                    <h2 className="font-grotesk font-semibold text-2xl">Prefer something ready-built?</h2>
+                    <p className="mt-4 text-sm text-[#0A0A0A]/70 leading-relaxed">
+                      Explore our own AI products — the same engineering standard, delivered as software you can start using now.
+                    </p>
+                  </div>
+                </Link>
+              </StaggerItem>
             </Stagger>
           )}
         </div>
