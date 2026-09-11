@@ -48,11 +48,14 @@ services:
       - key: TRUST_PROXY
         value: "true"
 
-      # Transactional email — optional. Without these, enquiries are still stored
-      # in MongoDB, but no notification or auto-reply is sent.
+      # Transactional email (via Resend) — optional. Without these, enquiries are
+      # still stored in MongoDB, but no notification or auto-reply is sent.
       - key: OWNER_EMAIL
         sync: false
-      - key: EMERGENT_EMAIL_KEY
+      - key: RESEND_API_KEY
+        sync: false
+      # Must be an address on a domain verified in Resend, e.g. no-reply@aadrique.in
+      - key: EMAIL_FROM_ADDRESS
         sync: false
       - key: EMAIL_FROM_NAME
         value: AADRIQUE

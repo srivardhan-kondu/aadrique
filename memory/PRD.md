@@ -37,9 +37,13 @@ Build the flagship marketing website for AADRIQUE TECH PVT LTD — a premium B2B
 - data-testid coverage on all interactive elements
 
 ## Email Delivery (10 June 2026)
-- Emergent-managed Resend via integration proxy (EMAIL_BASE_URL constant, X-Email-Key header, EMERGENT_EMAIL_KEY/EMAIL_FROM_NAME/OWNER_EMAIL in backend/.env)
-- On POST /api/contact: FastAPI BackgroundTasks send (1) owner notification to OWNER_EMAIL (info@aadrique.in) with reply-to=enquirer, (2) branded auto-reply to enquirer with reply-to=owner. Email failure never blocks form submission (logged only)
-- VERIFIED: auto-reply delivers (202). Owner notification currently blocked by provider deliverability check — info@aadrique.in mailbox not yet active in Google Workspace; user confirmed they will activate it (will work automatically once live)
+- Originally: Emergent-managed Resend via integration proxy (EMAIL_BASE_URL constant, X-Email-Key header, EMERGENT_EMAIL_KEY/EMAIL_FROM_NAME/OWNER_EMAIL in backend/.env)
+- On POST /api/contact: FastAPI BackgroundTasks send (1) owner notification to OWNER_EMAIL with reply-to=enquirer, (2) branded auto-reply to enquirer with reply-to=owner. Email failure never blocks form submission (logged only)
+- VERIFIED: auto-reply delivers (202). Owner notification originally blocked by provider deliverability check — info@aadrique.in mailbox not yet active in Google Workspace
+- 10 Sep 2026: OWNER_EMAIL redirected to gunasanjaysagar.m@aadrique.in (backend/.env, backend/.env.example) so enquiries route there instead.
+- 10 Sep 2026: Migrated off the Emergent proxy to calling Resend's API (`https://api.resend.com/emails`) directly, since the app is now self-hosted on Render, not the Emergent platform. `EMERGENT_EMAIL_KEY`/`EMAIL_BASE_URL` replaced by `RESEND_API_KEY`/`EMAIL_FROM_ADDRESS` (config.py, server.py send_email()). `email_enabled` now requires all three: RESEND_API_KEY, EMAIL_FROM_ADDRESS, OWNER_EMAIL.
+- 11 Sep 2026: RESEND_API_KEY added to backend/.env (local dev only) and verified with a real terminal send test — POST /emails from "AADRIQUE <no-reply@aadrique.in>" to OWNER_EMAIL returned HTTP 200 with a message id, confirming both the key and the aadrique.in domain are live/verified in Resend. Key is send-only restricted (GET /domains returns 401 "restricted_api_key" — expected, not an error). Awaiting user confirmation the test email actually landed in gunasanjaysagar.m@aadrique.in's inbox.
+- Remaining: production Render env vars (RESEND_API_KEY, EMAIL_FROM_ADDRESS — both sync:false, not in git) still need to be set in the Render dashboard before this works on the live site.
 - Gotcha: asyncio.create_task fire-and-forget was unreliable here; BackgroundTasks is the working pattern
 
 ## Content Cleanup (10 June 2026)

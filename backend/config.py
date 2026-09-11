@@ -70,11 +70,9 @@ class Settings:
         default_factory=lambda: [_normalize_origin(o) for o in _env_list("CORS_ORIGINS")]
     )
 
-    # --- Email (optional: the site still works without it) ---
-    email_base_url: str = field(
-        default_factory=lambda: _env("EMAIL_BASE_URL", "https://integrations.emergentagent.com")
-    )
-    email_key: str = field(default_factory=lambda: _env("EMERGENT_EMAIL_KEY"))
+    # --- Email (optional: the site still works without it) — sent via Resend ---
+    resend_api_key: str = field(default_factory=lambda: _env("RESEND_API_KEY"))
+    email_from_address: str = field(default_factory=lambda: _env("EMAIL_FROM_ADDRESS"))
     email_from_name: str = field(default_factory=lambda: _env("EMAIL_FROM_NAME", "AADRIQUE"))
     owner_email: str = field(default_factory=lambda: _env("OWNER_EMAIL"))
 
@@ -95,7 +93,7 @@ class Settings:
 
     @property
     def email_enabled(self) -> bool:
-        return bool(self.email_key and self.owner_email)
+        return bool(self.resend_api_key and self.owner_email and self.email_from_address)
 
     @property
     def docs_url(self):
@@ -129,7 +127,7 @@ class Settings:
                 fatal.append("ADMIN_TOKEN must be at least 24 characters.")
             if not self.email_enabled:
                 warnings.append(
-                    "Email is disabled (EMERGENT_EMAIL_KEY / OWNER_EMAIL unset) — "
+                    "Email is disabled (RESEND_API_KEY / OWNER_EMAIL / EMAIL_FROM_ADDRESS unset) — "
                     "enquiries will be stored but no notifications will be sent."
                 )
         else:
