@@ -39,7 +39,7 @@ Every variable lives in `backend/.env` (see `backend/.env.example`). The app
 | `ENVIRONMENT` | always | set to `production` on the server |
 | `CORS_ORIGINS` | production | exact origins, comma-separated. `*` is rejected |
 | `ADMIN_TOKEN` | production | ≥24 chars; guards the enquiry inbox |
-| `EMERGENT_EMAIL_KEY`, `OWNER_EMAIL` | optional | without them enquiries are stored but no email is sent |
+| `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`, `OWNER_EMAIL` | optional | without them enquiries are stored but no email is sent |
 | `TRUST_PROXY` | optional | `true` **only** behind a proxy you control |
 
 Generate the admin token:
@@ -51,6 +51,29 @@ python3 -c "import secrets; print(secrets.token_urlsafe(48))"
 > **Why `ADMIN_TOKEN` is mandatory:** `GET /api/enquiries` returns every enquiry
 > ever submitted — names, emails, phone numbers, company details. It used to be
 > completely open. Without a token set, the endpoint is disabled entirely.
+
+### Transactional email (Resend)
+
+The contact form sends two emails per submission via the [Resend](https://resend.com)
+API: a "new enquiry" notification to `OWNER_EMAIL`, and an auto-reply to the person
+who submitted the form. Both are skipped (enquiry is still saved to MongoDB) if any
+of `RESEND_API_KEY` / `EMAIL_FROM_ADDRESS` / `OWNER_EMAIL` is unset.
+
+1. Create a free account at <https://resend.com>.
+2. **Domains → Add Domain** → enter `aadrique.in`. Resend gives you a handful of
+   DNS records (SPF `TXT`, DKIM `CNAME`s, and optionally a DMARC `TXT`) — add them
+   at your domain registrar/DNS host. Verification usually completes within
+   minutes to a few hours after the records propagate.
+3. **API Keys → Create API Key** → copy it into `RESEND_API_KEY`.
+4. Set `EMAIL_FROM_ADDRESS` to any address on that verified domain — it does not
+   need to be a real mailbox, e.g. `no-reply@aadrique.in`. This is what recipients
+   see as the sender; replies go to whoever the enquiry names as `reply_to`
+   (the enquirer for the owner notification, `OWNER_EMAIL` for the auto-reply).
+5. Set `OWNER_EMAIL` to the mailbox that should actually receive new-enquiry
+   notifications (currently `gunasanjaysagar.m@aadrique.in`) — this one **does**
+   need to be a real, working inbox.
+6. Restart the API (env vars are only read at startup), then submit a test
+   enquiry through the live site and confirm it arrives.
 
 Frontend variables are baked in **at build time** (Create React App behaviour).
 Changing `REACT_APP_BACKEND_URL` requires a rebuild — setting it on the server does
@@ -135,7 +158,8 @@ at **build** time, and Render needs the Vercel domain for CORS.
 2. It will prompt for the variables not stored in git:
    - `MONGO_URL` → the Atlas SRV string from step 1
    - `CORS_ORIGINS` → leave as a placeholder for now, corrected in step 4
-   - `OWNER_EMAIL` / `EMERGENT_EMAIL_KEY` → optional; blank disables email
+   - `OWNER_EMAIL` / `RESEND_API_KEY` / `EMAIL_FROM_ADDRESS` → optional; blank disables email
+     (see "Transactional email" below to set these up)
 3. Deploy. First build takes a few minutes.
 4. Copy the service URL, e.g. `https://aadrique-api.onrender.com`.
 5. Verify: `curl https://aadrique-api.onrender.com/api/health` → `{"status":"ok","database":"ok",...}`
@@ -291,7 +315,8 @@ mongodump --uri="$MONGO_URL" --db=aadrique --collection=enquiries --out=/backups
 - **Rate limiting is per-process and in-memory.** With multiple uvicorn workers each
   keeps its own counter, so the effective limit is `CONTACT_RATE_LIMIT × workers`.
   Fine for a marketing site; move to Redis if it ever matters.
-- **Email delivery to `info@aadrique.in`** stays blocked until that mailbox is active
-  in Google Workspace. No code change is needed once it is — the auto-reply to the
-  enquirer already delivers.
+- **Owner notification delivery to `OWNER_EMAIL`** (currently `gunasanjaysagar.m@aadrique.in`)
+  depends on that mailbox being active in Google Workspace and passing the provider's
+  deliverability check — verify a test enquiry actually lands there. If it doesn't
+  arrive, the auto-reply to the enquirer still delivers regardless (separate send).
 - **CRA build-time env vars** mean the frontend must be rebuilt to change API host.

@@ -37,14 +37,19 @@ async def send_email(to: str, subject: str, html: str, reply_to: Optional[str] =
     if not settings.email_enabled:
         logger.warning("Email disabled — skipping '%s' to %s", subject, to)
         return False
-    payload = {"to": [to], "subject": subject, "html": html, "from_name": settings.email_from_name}
+    payload = {
+        "from": f"{settings.email_from_name} <{settings.email_from_address}>",
+        "to": [to],
+        "subject": subject,
+        "html": html,
+    }
     if reply_to:
-        payload["contact_email"] = reply_to
+        payload["reply_to"] = [reply_to]
     try:
         async with httpx.AsyncClient(timeout=30) as http:
             resp = await http.post(
-                f"{settings.email_base_url}/api/v1/email/send",
-                headers={"X-Email-Key": settings.email_key},
+                "https://api.resend.com/emails",
+                headers={"Authorization": f"Bearer {settings.resend_api_key}"},
                 json=payload,
             )
         resp.raise_for_status()
