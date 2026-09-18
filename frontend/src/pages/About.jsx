@@ -30,7 +30,7 @@ const FACTS = [
 ];
 
 const TEAM = [
-  { name: "Guna Sanjay Sagar", initials: "GS", role: "Founder" },
+  { name: "Guna Sanjay Sagar", initials: "GS", role: "Founder & Director", photo: "/photo.jpeg" },
   { name: "Geetha Reddy", initials: "GR", role: "Co-Founder" },
 ];
 
@@ -155,8 +155,18 @@ export default function About() {
             <div className="mt-10 grid sm:grid-cols-2 gap-px bg-line border border-line">
               {TEAM.map((t, i) => (
                 <Reveal key={t.name} delay={i * 0.08} className="p-6 bg-bg">
-                  <div className="h-40 md:h-44 bg-surface2 hatch mb-5 flex items-end p-3">
-                    <span className="font-grotesk font-semibold text-4xl text-accentText">{t.initials}</span>
+                  <div className="h-40 md:h-44 bg-surface2 mb-5 overflow-hidden relative">
+                    {t.photo ? (
+                      <img
+                        src={t.photo}
+                        alt={t.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <div className="hatch w-full h-full flex items-end p-3">
+                        <span className="font-grotesk font-semibold text-4xl text-accentText">{t.initials}</span>
+                      </div>
+                    )}
                   </div>
                   <h3 className="font-grotesk font-semibold text-base leading-tight">{t.name}</h3>
                   <p className="mt-1 text-xs text-accentText uppercase tracking-wide">{t.role}</p>
