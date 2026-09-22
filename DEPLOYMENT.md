@@ -264,8 +264,8 @@ Enquiries are stored in the `enquiries` collection and emailed to `OWNER_EMAIL`.
 To read them over the API:
 
 ```bash
-curl -H "X-Admin-Token: $ADMIN_TOKEN" https://www.aadrique.in/api/enquiries
-curl -H "X-Admin-Token: $ADMIN_TOKEN" "https://www.aadrique.in/api/enquiries?limit=20&skip=20"
+curl -H "X-Admin-Token: $ADMIN_TOKEN" https://aadrique.onrender.com/api/enquiries
+curl -H "X-Admin-Token: $ADMIN_TOKEN" "https://aadrique.onrender.com/api/enquiries?limit=20&skip=20"
 ```
 
 Treat the token like a password — anyone holding it can read all customer data.
@@ -275,10 +275,10 @@ Treat the token like a password — anyone holding it can read all customer data
 ## 7. Verifying a deploy
 
 ```bash
-curl -s https://www.aadrique.in/api/health              # {"status":"ok","database":"ok",...}
-curl -s https://www.aadrique.in/api/services | head -c 200
+curl -s https://aadrique.onrender.com/api/health        # {"status":"ok","database":"ok","email":"enabled",...}
+curl -s https://aadrique.onrender.com/api/services | head -c 200
 curl -o /dev/null -w '%{http_code}\n' https://www.aadrique.in/capabilities/ai-consulting   # 200 (SPA fallback)
-curl -o /dev/null -w '%{http_code}\n' https://www.aadrique.in/api/enquiries                # 401
+curl -o /dev/null -w '%{http_code}\n' https://aadrique.onrender.com/api/enquiries          # 401
 curl -s https://www.aadrique.in/robots.txt
 ```
 

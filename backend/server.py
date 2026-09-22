@@ -52,7 +52,15 @@ async def send_email(to: str, subject: str, html: str, reply_to: Optional[str] =
                 headers={"Authorization": f"Bearer {settings.resend_api_key}"},
                 json=payload,
             )
-        resp.raise_for_status()
+        if resp.status_code >= 400:
+            # Resend explains the refusal in the body (unverified domain, bad
+            # from-address, revoked key). raise_for_status() discards it, which
+            # makes a misconfigured deploy look like a silent no-op.
+            logger.error(
+                "Email send failed to %s (%s): Resend returned %s — %s",
+                to, subject, resp.status_code, resp.text[:500],
+            )
+            return False
         logger.info("Email sent to %s (%s)", to, subject)
         return True
     except Exception as e:  # noqa: BLE001 — email must never break the request
